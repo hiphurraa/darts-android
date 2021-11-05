@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "darts_players_table")
 data class Player (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     val id: Long,
 
     @ColumnInfo(name = "name")
     val name: String = "",
 
-    @ColumnInfo(name = "default")
-    val default: Boolean = false
+    @ColumnInfo(name = "defaultSelected")
+    val defaultSelected: Boolean = false
     )
