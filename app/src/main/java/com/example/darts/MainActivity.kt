@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         database = DartsDatabase.getInstance(applicationContext)
         playerDao = database.playerDao()
-        exampleInsert()
+        //exampleInsert()
 
 
         setContentView(R.layout.activity_main)

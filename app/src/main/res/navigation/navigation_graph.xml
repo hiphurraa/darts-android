@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/gameMenuFragment">
+
+    <fragment
+        android:id="@+id/gameMenuFragment"
+        android:name="com.example.darts.gamemenu.GameMenuFragment"
+        android:label="GameMenuFragment" >
+        <action
+            android:id="@+id/action_gameMenuFragment_to_gameCreationFragment"
+            app:destination="@id/gameCreationFragment" />
+        <action
+            android:id="@+id/action_gameMenuFragment_to_gameSettingsFragment"
+            app:destination="@id/gameSettingsFragment" />
+        <action
+            android:id="@+id/action_gameMenuFragment_to_gameHistoryFragment"
+            app:destination="@id/gameHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameCreationFragment"
+        android:name="com.example.darts.gamecreation.GameCreationFragment"
+        android:label="GameCreationFragment" >
+        <action
+            android:id="@+id/action_gameCreationFragment_to_gameScreenFragment"
+            app:destination="@id/gameScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameSettingsFragment"
+        android:name="com.example.darts.gamesettings.GameSettingsFragment"
+        android:label="GameSettingsFragment" />
+    <fragment
+        android:id="@+id/gameHistoryFragment"
+        android:name="com.example.darts.gamehistory.GameHistoryFragment"
+        android:label="GameHistoryFragment" />
+    <fragment
+        android:id="@+id/gameScreenFragment"
+        android:name="com.example.darts.gamescreen.GameScreenFragment"
+        android:label="GameScreenFragment" />
+</navigation>
