@@ -32,11 +32,19 @@
     <fragment
         android:id="@+id/gameSettingsFragment"
         android:name="com.example.darts.gamesettings.GameSettingsFragment"
-        android:label="@string/fragment_label_game_settings" />
+        android:label="@string/fragment_label_game_settings" >
+        <action
+            android:id="@+id/action_gameSettingsFragment_to_gameMenuFragment"
+            app:destination="@id/gameMenuFragment" />
+    </fragment>
     <fragment
         android:id="@+id/gameHistoryFragment"
         android:name="com.example.darts.gamehistory.GameHistoryFragment"
-        android:label="@string/fragment_label_game_history" />
+        android:label="@string/fragment_label_game_history" >
+        <action
+            android:id="@+id/action_gameHistoryFragment_to_gameMenuFragment"
+            app:destination="@id/gameMenuFragment" />
+    </fragment>
     <fragment
         android:id="@+id/gameScreenFragment"
         android:name="com.example.darts.gamescreen.GameScreenFragment"
