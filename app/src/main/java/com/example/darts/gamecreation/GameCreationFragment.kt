@@ -20,7 +20,7 @@ class GameCreationFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentGameCreationBinding.inflate(inflater, container, false)
-        binding.navigationBar.tvTitle.text = "Uusi peli"
+        binding.navigationBar.tvTitle.text = resources.getString(R.string.gc_nav_title)
         return binding.root
     }
 

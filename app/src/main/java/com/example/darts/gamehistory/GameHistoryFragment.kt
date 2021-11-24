@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.darts.R
-import com.example.darts.databinding.FragmentGameCreationBinding
 import com.example.darts.databinding.FragmentGameHistoryBinding
 
 private var _binding: FragmentGameHistoryBinding? = null
@@ -17,7 +16,7 @@ class GameHistoryFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentGameHistoryBinding.inflate(inflater, container, false)
-        binding.navigationBar.tvTitle.text = "Pelihistoria"
+        binding.navigationBar.tvTitle.text = resources.getString(R.string.gh_nav_title)
         return binding.root
     }
 

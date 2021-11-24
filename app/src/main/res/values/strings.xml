@@ -14,6 +14,7 @@
     <string name="menu_btn_exit">Poistu</string>
 
     <!-- Game creation -->
+    <string name="gc_nav_title">Uusi peli</string>
     <string name="gc_yes">Kyllä</string>
     <string name="gc_no">Ei</string>
     <string name="gc_continue">Jatka</string>
@@ -22,6 +23,12 @@
     <string name="gc_301">301</string>
     <string name="gc_501">501</string>
     <string name="gc_start_game">Aloita peli</string>
+
+    <!-- Game history -->
+    <string name="gh_nav_title">Pelihistoria</string>
+
+    <!-- Game settings -->
+    <string name="gs_nav_title">Asetukset</string>
 
 
 </resources>
