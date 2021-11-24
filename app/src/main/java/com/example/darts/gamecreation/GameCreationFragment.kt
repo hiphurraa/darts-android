@@ -11,12 +11,10 @@ import com.example.darts.R
 import com.example.darts.databinding.FragmentGameCreationBinding
 
 private var _binding: FragmentGameCreationBinding? = null
-// This property is only valid between onCreateView and
-// onDestroyView.
 private val binding get() = _binding!!
-private val FIRST_VIEW = "first"
-private val SECOND_VIEW = "second"
-private val THIRD_VIEW = "third"
+private val FIRST_VIEW = "first_view"
+private val SECOND_VIEW = "second_view"
+private val THIRD_VIEW = "third_view"
 private var currentView = FIRST_VIEW
 
 class GameCreationFragment: Fragment() {
@@ -28,8 +26,11 @@ class GameCreationFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /** Navigation bar back button functionality */
         binding.navigationBar.btnBack.setOnClickListener {
             if (currentView == FIRST_VIEW) {
+                // Back to game menu fragment
                 Navigation.findNavController(view).navigate(R.id.action_gameCreationFragment_to_gameMenuFragment)
             }
             else if (currentView == SECOND_VIEW) {
@@ -44,16 +45,21 @@ class GameCreationFragment: Fragment() {
             }
         }
 
+        /** Continue button functionality */
         binding.gameCreationFirstView.btnContinue.setOnClickListener {
             binding.gameCreationFirstView.root.visibility = View.INVISIBLE
             binding.gameCreationSecondView.root.visibility = View.VISIBLE
             currentView = SECOND_VIEW
         }
-
         binding.gameCreationSecondView.btnContinue.setOnClickListener {
             binding.gameCreationSecondView.root.visibility = View.INVISIBLE
             binding.gameCreationThirdView.root.visibility = View.VISIBLE
             currentView = THIRD_VIEW
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
