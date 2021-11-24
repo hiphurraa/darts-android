@@ -1,3 +1,27 @@
 <resources>
+
+    <!-- Fragment labels -->
+    <string name="fragment_label_game_menu">Päävalikko</string>
+    <string name="fragment_label_game_creation">Uusi peli</string>
+    <string name="fragment_label_game_history">Pelihistoria</string>
+    <string name="fragment_label_game_settings">Asetukset</string>
+
+    <!-- Main menu -->
     <string name="app_name">Darts</string>
+    <string name="menu_btn_new_game">Uusi peli</string>
+    <string name="menu_btn_history">Pelihistoria</string>
+    <string name="menu_btn_settings">Asetukset</string>
+    <string name="menu_btn_exit">Poistu</string>
+
+    <!-- Game creation -->
+    <string name="gc_yes">Kyllä</string>
+    <string name="gc_no">Ei</string>
+    <string name="gc_continue">Jatka</string>
+    <string name="gc_starting_points">Aloituspisteet</string>
+    <string name="gc_starts_with_double">Aloitetaan tuplalla</string>
+    <string name="gc_301">301</string>
+    <string name="gc_501">501</string>
+    <string name="gc_start_game">Aloita peli</string>
+
+
 </resources>

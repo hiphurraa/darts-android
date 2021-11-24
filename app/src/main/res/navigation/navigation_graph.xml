@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/gameMenuFragment"
         android:name="com.example.darts.gamemenu.GameMenuFragment"
-        android:label="GameMenuFragment" >
+        android:label="@string/fragment_label_game_menu" >
         <action
             android:id="@+id/action_gameMenuFragment_to_gameCreationFragment"
             app:destination="@id/gameCreationFragment" />
@@ -21,19 +21,22 @@
     <fragment
         android:id="@+id/gameCreationFragment"
         android:name="com.example.darts.gamecreation.GameCreationFragment"
-        android:label="GameCreationFragment" >
+        android:label="@string/fragment_label_game_creation" >
         <action
             android:id="@+id/action_gameCreationFragment_to_gameScreenFragment"
             app:destination="@id/gameScreenFragment" />
+        <action
+            android:id="@+id/action_gameCreationFragment_to_gameMenuFragment"
+            app:destination="@id/gameMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameSettingsFragment"
         android:name="com.example.darts.gamesettings.GameSettingsFragment"
-        android:label="GameSettingsFragment" />
+        android:label="@string/fragment_label_game_settings" />
     <fragment
         android:id="@+id/gameHistoryFragment"
         android:name="com.example.darts.gamehistory.GameHistoryFragment"
-        android:label="GameHistoryFragment" />
+        android:label="@string/fragment_label_game_history" />
     <fragment
         android:id="@+id/gameScreenFragment"
         android:name="com.example.darts.gamescreen.GameScreenFragment"

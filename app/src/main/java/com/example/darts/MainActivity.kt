@@ -3,6 +3,10 @@ package com.example.darts
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log.d
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.room.Room
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
@@ -18,13 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Disable dark mode for now
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         database = DartsDatabase.getInstance(applicationContext)
         playerDao = database.playerDao()
         //exampleInsert()
 
-
-        setContentView(R.layout.activity_main)
     }
 
     fun exampleInsert() {

@@ -6,63 +6,86 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="176dp"
         android:layout_marginTop="108dp"
         android:layout_marginEnd="177dp"
-        android:text="Darts"
-        android:textSize="34sp"
+        android:text="@string/app_name"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:id="@+id/newGame"
+        android:id="@+id/btnNewGame"
         android:layout_width="186dp"
         android:layout_height="74dp"
         android:layout_marginStart="158dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="159dp"
-        android:text="Uusi peli"
+        android:text="@string/menu_btn_new_game"
+        android:backgroundTint="@color/medium_gray"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAppName" />
 
     <Button
-        android:id="@+id/stats"
+        android:id="@+id/btnHistory"
         android:layout_width="186dp"
         android:layout_height="74dp"
         android:layout_marginStart="158dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="159dp"
-        android:text="Statsit"
+        android:text="@string/menu_btn_history"
+        android:backgroundTint="@color/medium_gray"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newGame" />
+        app:layout_constraintTop_toBottomOf="@+id/btnNewGame" />
 
     <Button
-        android:id="@+id/settings"
+        android:id="@+id/btnSettings"
         android:layout_width="186dp"
         android:layout_height="74dp"
         android:layout_marginStart="158dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="159dp"
-        android:text="Asetukset"
+        android:text="@string/menu_btn_settings"
+        android:backgroundTint="@color/medium_gray"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stats" />
+        app:layout_constraintTop_toBottomOf="@+id/btnHistory" />
 
     <Button
-        android:id="@+id/exit"
+        android:id="@+id/btnExit"
         android:layout_width="186dp"
         android:layout_height="74dp"
         android:layout_marginStart="158dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="159dp"
-        android:text="Poistu"
+        android:text="@string/menu_btn_exit"
+        android:backgroundTint="@color/medium_gray"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
