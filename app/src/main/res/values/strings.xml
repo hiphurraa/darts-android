@@ -23,6 +23,8 @@
     <string name="gc_301">301</string>
     <string name="gc_501">501</string>
     <string name="gc_start_game">Aloita peli</string>
+    <string name="gc_selected_players">Valitut pelaajat</string>
+
 
     <!-- Game screen -->
 

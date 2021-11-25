@@ -4,28 +4,115 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tvTest"
+    <LinearLayout
+        android:id="@+id/llStartingPoints"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pelin asetusten vahvistus"
-        android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:background="@color/light_gray"
+        android:paddingVertical="15dp"
+        android:layout_marginHorizontal="35dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gc_starting_points"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvStartingPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llStartWithDouble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/llStartingPoints"
+        android:background="@color/light_gray"
+        android:paddingVertical="15dp"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gc_starts_with_double"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvStartsWithDouble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSelectedPlayers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/llStartWithDouble"
+        android:background="@color/light_gray"
+        android:paddingVertical="15dp"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gc_selected_players"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvSelectedPlayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+
 
     <Button
         android:id="@+id/btnContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="80dp"
+        android:layout_marginHorizontal="35dp"
         android:layout_marginTop="30dp"
-        android:paddingVertical="10dp"
+        android:paddingVertical="15dp"
         android:text="@string/gc_start_game"
         android:textStyle="bold"
         android:textSize="20sp"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/tvTest"
+        app:layout_constraintTop_toBottomOf="@id/llSelectedPlayers"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

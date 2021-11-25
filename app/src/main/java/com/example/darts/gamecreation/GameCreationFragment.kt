@@ -61,6 +61,21 @@ class GameCreationFragment: Fragment() {
             binding.gameCreationSecondView.root.visibility = View.INVISIBLE
             binding.gameCreationThirdView.root.visibility = View.VISIBLE
             currentView = THIRD_VIEW
+
+            // Show starting points
+            val startingPointsId = binding.gameCreationFirstView.rgStartingPoints.checkedRadioButtonId
+            binding.gameCreationThirdView.tvStartingPoints.text = requireView().findViewById<RadioButton>(startingPointsId).text.toString()
+
+            // Show starts with double
+            val startsWithDoubleId = binding.gameCreationFirstView.rgStartWithDouble.checkedRadioButtonId
+            val startsWithDouble: Boolean = requireView().findViewById<RadioButton>(startsWithDoubleId).text.toString()
+                .equals(resources.getString(R.string.gc_yes))
+            binding.gameCreationThirdView.tvStartsWithDouble.text =
+                if (startsWithDouble) resources.getString(R.string.gc_yes)
+                else resources.getString(R.string.gc_no)
+
+            // Show players
+            binding.gameCreationThirdView.tvSelectedPlayers.text = "Tomi ja Lauri"
         }
         binding.gameCreationThirdView.btnContinue.setOnClickListener {
             currentView = FIRST_VIEW
@@ -88,7 +103,7 @@ class GameCreationFragment: Fragment() {
         // Create in-game settings object
         inGameSettings = InGameSettings(startingPoints, startsWithDouble, playersIds)
         val action = GameCreationFragmentDirections.actionGameCreationFragmentToGameScreenFragment(inGameSettings)
-        Navigation.findNavController(view).navigate(action.actionId)
+        Navigation.findNavController(view).navigate(action)
         MainActivity.isInGame = true
     }
 
