@@ -17,6 +17,10 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        var isInGame: Boolean = false
+    }
+
     private lateinit var database: DartsDatabase
     private lateinit var playerDao: PlayerDao
 
@@ -30,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         database = DartsDatabase.getInstance(applicationContext)
         playerDao = database.playerDao()
         //exampleInsert()
-
     }
 
     fun exampleInsert() {
@@ -45,5 +48,10 @@ class MainActivity : AppCompatActivity() {
                 d("lauhyv", it.defaultSelected.toString())
             }
         }
+    }
+
+    /** Disable the back button when in game */
+    override fun onBackPressed() {
+        if (!isInGame) super.onBackPressed()
     }
 }

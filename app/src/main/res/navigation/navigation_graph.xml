@@ -48,5 +48,9 @@
     <fragment
         android:id="@+id/gameScreenFragment"
         android:name="com.example.darts.gamescreen.GameScreenFragment"
-        android:label="GameScreenFragment" />
+        android:label="GameScreenFragment" >
+        <argument
+            android:name="inGameSettings"
+            app:argType="com.example.darts.InGameSettings" />
+    </fragment>
 </navigation>

@@ -24,6 +24,8 @@
     <string name="gc_501">501</string>
     <string name="gc_start_game">Aloita peli</string>
 
+    <!-- Game screen -->
+
     <!-- Game history -->
     <string name="gh_nav_title">Pelihistoria</string>
 

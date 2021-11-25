@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.example.darts.InGameSettings
+import com.example.darts.MainActivity
 import com.example.darts.R
 import com.example.darts.databinding.FragmentGameCreationBinding
 
@@ -15,11 +19,13 @@ private val FIRST_VIEW = "first_view"
 private val SECOND_VIEW = "second_view"
 private val THIRD_VIEW = "third_view"
 private var currentView = FIRST_VIEW
+private lateinit var inGameSettings: InGameSettings
 
 class GameCreationFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentGameCreationBinding.inflate(inflater, container, false)
+        // Setting the navigation bar title
         binding.navigationBar.tvTitle.text = resources.getString(R.string.gc_nav_title)
         return binding.root
     }
@@ -56,6 +62,34 @@ class GameCreationFragment: Fragment() {
             binding.gameCreationThirdView.root.visibility = View.VISIBLE
             currentView = THIRD_VIEW
         }
+        binding.gameCreationThirdView.btnContinue.setOnClickListener {
+            currentView = FIRST_VIEW
+            this.startGame(view)
+        }
+    }
+
+    /** Create InGameSettings object and start the game with the settings */
+    private fun startGame(view: View) {
+        // Get starting points from radio group
+        val startingPointsId = binding.gameCreationFirstView.rgStartingPoints.checkedRadioButtonId
+        val startingPoints: String = requireView().findViewById<RadioButton>(startingPointsId).text.toString()
+
+        // Get starts with double from radio group
+        val startsWithDoubleId = binding.gameCreationFirstView.rgStartWithDouble.checkedRadioButtonId
+        val startsWithDouble: Boolean = requireView().findViewById<RadioButton>(startsWithDoubleId).text.toString()
+            .equals(resources.getString(R.string.gc_yes))
+
+        // TODO: implement players selection
+        // List of players IDs
+        val playersIds = ArrayList<Int>(10)
+        playersIds.add(0)
+        playersIds.add(1)
+
+        // Create in-game settings object
+        inGameSettings = InGameSettings(startingPoints, startsWithDouble, playersIds)
+        val action = GameCreationFragmentDirections.actionGameCreationFragmentToGameScreenFragment(inGameSettings)
+        Navigation.findNavController(view).navigate(action.actionId)
+        MainActivity.isInGame = true
     }
 
     override fun onDestroyView() {

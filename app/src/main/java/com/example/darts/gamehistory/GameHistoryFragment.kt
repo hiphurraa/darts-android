@@ -16,6 +16,7 @@ class GameHistoryFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentGameHistoryBinding.inflate(inflater, container, false)
+        // Setting the navigaton bar title
         binding.navigationBar.tvTitle.text = resources.getString(R.string.gh_nav_title)
         return binding.root
     }
