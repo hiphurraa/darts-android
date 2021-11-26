@@ -33,6 +33,11 @@
 
     <!-- Game settings -->
     <string name="gs_nav_title">Asetukset</string>
+    <string name="gs_lang_fin">Suomi</string>
+    <string name="gs_lang_eng">English</string>
+    <string name="gs_lang">Kieli</string>
+    <string name="gs_points_speed">Pisteiden pikavalinta</string>
+    <string name="gs_points_speed_info">Jos päällä, pisteiden syöttöä ei tarvitse vahvistaa "OK"-näppäimellä</string>
 
 
 </resources>
