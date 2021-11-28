@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName="darts_app_settings_table")
 data class AppSettings(
-    @PrimaryKey
-    val id: Int = 1,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
 
     @ColumnInfo(name = "language")
-    val language: String = "FI",
+    val language: String? = "FI",
 
     @ColumnInfo(name = "points_speed_entry")
-    val speedEntryEnabled: Boolean = false
+    val speedEntryEnabled: Boolean? = false
 )
