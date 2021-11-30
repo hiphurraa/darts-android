@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.room.Room
+import com.example.darts.database.AppSettingsDao
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
 import com.example.darts.database.entities.Player
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var database: DartsDatabase
     private lateinit var playerDao: PlayerDao
+    private lateinit var appSettingsDao: AppSettingsDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,19 @@ class MainActivity : AppCompatActivity() {
 
         database = DartsDatabase.getInstance(applicationContext)
         playerDao = database.playerDao()
+        appSettingsDao = database.appSettingsDao()
+        createDefaultSettingsIfNotExist()
         //exampleInsert()
+    }
+
+    fun createDefaultSettingsIfNotExist() {
+        GlobalScope.launch(context = Dispatchers.Default) {
+            val settings = appSettingsDao.getSettings()
+            if(settings == null) {
+                appSettingsDao.insertSettings("FI", false)
+            }
+        }
+
     }
 
     fun exampleInsert() {

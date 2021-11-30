@@ -9,7 +9,7 @@ import com.example.darts.database.entities.AppSettings
 @Dao
 interface AppSettingsDao {
     @Query("SELECT * FROM darts_app_settings_table WHERE id = 1")
-    fun getSettings(): AppSettings
+    fun getSettings(): AppSettings?
 
     @Query("INSERT INTO darts_app_settings_table(language, points_speed_entry) VALUES (:language, :speedEntry)")
     fun insertSettings(language: String, speedEntry: Boolean)

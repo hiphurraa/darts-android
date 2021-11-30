@@ -13,21 +13,26 @@ import com.example.darts.database.AppSettingsDao
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
 import com.example.darts.database.entities.AppSettings
+import com.example.darts.databinding.FragmentGameCreationBinding
 import com.example.darts.databinding.FragmentGameSettingsBinding
 import kotlinx.coroutines.*
 
 class GameSettingsFragment: Fragment() {
+
+    private var _binding: FragmentGameSettingsBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var database: DartsDatabase
     private lateinit var appSettingsDao: AppSettingsDao
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = FragmentGameSettingsBinding.inflate(inflater, container, false)
+        _binding = FragmentGameSettingsBinding.inflate(inflater, container, false)
 
         val context = requireActivity().applicationContext
         database = DartsDatabase.getInstance(context)
         appSettingsDao = database.appSettingsDao()
+
         return binding.root
     }
 
@@ -43,7 +48,27 @@ class GameSettingsFragment: Fragment() {
                 appSettings = insertDefaultSettings()
             }
         }
-        d("lauhyv", appSettings.toString())
+
+        // Button clicks
+        binding.btnGsLanguageEnglish.setOnClickListener {
+            val newSettings = AppSettings(appSettings?.id!!, "ENG", appSettings?.speedEntryEnabled!!)
+            updateSettings(newSettings)
+        }
+
+        binding.btnGsLanguageFinnish.setOnClickListener {
+            val newSettings = AppSettings(appSettings?.id!!, "FI", appSettings?.speedEntryEnabled!!)
+            updateSettings(newSettings)
+        }
+
+        binding.btnGsPointsSpeedNo.setOnClickListener {
+            val newSettings = AppSettings(appSettings?.id!!, appSettings?.language!!, false)
+            updateSettings(newSettings)
+        }
+
+        binding.btnGsPointsSpeedYes.setOnClickListener {
+            val newSettings = AppSettings(appSettings?.id!!, appSettings?.language!!, true)
+            updateSettings(newSettings)
+        }
     }
 
      private suspend fun getSettings(): AppSettings? {
@@ -63,5 +88,9 @@ class GameSettingsFragment: Fragment() {
         return defaultAppSettings
     }
 
-
+    private fun updateSettings(updatedAppSettings: AppSettings) {
+        GlobalScope.launch(context =  Dispatchers.Default){
+            appSettingsDao.updateAppSettings(updatedAppSettings)
+        }
+    }
 }
