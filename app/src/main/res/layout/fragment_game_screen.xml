@@ -2,15 +2,594 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tvSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
+    <!-- Top half, scores -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clScoreSituation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/clScoreInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintVertical_weight="1">
+
+        <!-- All players scores and menu button -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAllPlayersScore"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/clCurrentPlayerScore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tvPlayer_0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="player longnameeeeee - 501 (Viimeisin 180)"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPlayer_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="player longnameeeeee - 501 (Viimeisin 180)"
+                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPlayer_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="player longnameeeeee - 501 (Viimeisin 180)"
+                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_1"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPlayer_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="player longnameeeeee - 501 (Viimeisin 180)"
+                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_2"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPlayer_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="player longnameeeeee - 501 (Viimeisin 180)"
+                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_3"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPlayer_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="player longnameeeeee - 501 (Viimeisin 180)"
+                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_4"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPlayer_6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="player longnameeeeee - 501 (Viimeisin 180)"
+                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:src="@drawable/menu_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="fitCenter"
+                android:background="@drawable/round_gray_bg"
+                android:padding="5dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Current player score -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCurrentPlayerScore"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/clAllPlayersScore"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="40dp">
+
+            <FrameLayout
+                android:id="@+id/flCurrentPlayerScore"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_gray_bg"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvCurrentPlayerScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="471"
+                        android:textSize="50sp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/tvCurrentPlayerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="player longnameeeeee"
+                        android:textAlignment="center"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/flCurrentPlayerScore"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/flScoreDartOne"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_gray_bg"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/flScoreDartTwo"
+                    android:layout_marginHorizontal="5dp"
+                    android:maxHeight="80dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvScoreDartOne"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="20"
+                            android:textSize="30sp"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center_horizontal" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/flScoreDartTwo"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_gray_bg"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintStart_toEndOf="@+id/flScoreDartOne"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/flScoreDartThree"
+                    android:layout_marginHorizontal="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvScoreDartTwo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="20"
+                            android:textSize="30sp"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center_horizontal" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/flScoreDartThree"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_gray_bg"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintStart_toEndOf="@+id/flScoreDartTwo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvScoreDartThree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="20"
+                            android:textSize="30sp"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center_horizontal" />
+                    </LinearLayout>
+                </FrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Bottom half, score inputs -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clScoreInput"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/clScoreSituation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintVertical_weight="1">
+
+
+        <LinearLayout
+            android:id="@+id/llScoreButtonsUndoAndBulls"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/llScoreButtonsOneToFive">
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:text="peru"
+                android:backgroundTint="@color/xx_dark_gray"
+                android:textColor="#E1E1E1"
+                android:textSize="22sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="25"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="50"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llScoreButtonsOneToFive"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/llScoreButtonsUndoAndBulls"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/llScoreButtonsSixToTen">
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:text="1"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="2"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="3"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="4"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="5"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llScoreButtonsSixToTen"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/llScoreButtonsOneToFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/llScoreButtonsElevenToFifteen">
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:text="6"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="7"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="8"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="9"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="10"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/llScoreButtonsElevenToFifteen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/llScoreButtonsSixToTen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/llScoreButtonsSixteenToTwenty">
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:text="11"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="12"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="13"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="14"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="15"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llScoreButtonsSixteenToTwenty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/llScoreButtonsElevenToFifteen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/llScoreButtonsMissAndFactors">
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:text="16"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="17"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="18"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="19"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="20"
+                android:backgroundTint="@color/medium_gray"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llScoreButtonsMissAndFactors"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/llScoreButtonsSixteenToTwenty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:text="ohi"
+                android:backgroundTint="@color/x_dark_gray"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textAllCaps="false" />
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="x2"
+                android:backgroundTint="@color/factors_red"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:text="x3"
+                android:backgroundTint="@color/factors_red"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

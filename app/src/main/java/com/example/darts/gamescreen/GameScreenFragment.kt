@@ -32,9 +32,6 @@ class GameScreenFragment: Fragment() {
         inGameSettings.playersIds.iterator().forEach {
                 playersIds += it.toString() + " "
         }
-        binding.tvSettings.text = "Starting points: " + startingPoints +
-                " Starts with double: " + startsWithDouble +
-                " Players IDs: " + playersIds
     }
 
     override fun onDestroyView() {
