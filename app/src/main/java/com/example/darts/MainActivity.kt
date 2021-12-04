@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         playerDao = database.playerDao()
         appSettingsDao = database.appSettingsDao()
         createDefaultSettingsIfNotExist()
-        //exampleInsert()
     }
 
     fun createDefaultSettingsIfNotExist() {
@@ -52,19 +51,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun exampleInsert() {
-        GlobalScope.launch(context = Dispatchers.Default) {
-            playerDao.insertPlayer("Lauri", false)
-
-            val players = playerDao.getAll()
-
-            players.forEach {
-                d("lauhyv", it.name)
-                d("lauhyv", it.id.toString())
-                d("lauhyv", it.defaultSelected.toString())
-            }
-        }
-    }
 
     /** Disable the back button when in game */
     override fun onBackPressed() {

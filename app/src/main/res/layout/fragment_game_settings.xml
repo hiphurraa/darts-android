@@ -1,53 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="gameSettingsViewModel"
+            type="com.example.darts.gamesettings.GameSettingsViewModel" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/gs_title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="177dp"
-        android:text="@string/gs_nav_title"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/navigationBar"
+        layout="@layout/navigation_bar_view"/>
 
-    <TextView
-        android:id="@+id/gs_language_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="177dp"
-        android:text="@string/gs_lang"
-        android:textColor="@color/black"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gs_title_text" />
 
-    <TextView
-        android:id="@+id/gs_points_speed_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="198dp"
-        android:layout_marginEnd="177dp"
-        android:text="@string/gs_points_speed"
-        android:textColor="@color/black"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+    <Button
+        android:id="@+id/btn_gs_points_speed_no"
+        android:layout_width="110dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="308dp"
+        android:text="@string/gc_no"
         app:layout_constraintStart_toStartOf="parent"
+        android:onClick="@{() -> gameSettingsViewModel.onSpeedEntryDisabled()}"
         app:layout_constraintTop_toTopOf="@+id/gs_language_text" />
 
     <TextView
@@ -55,55 +32,80 @@
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="177dp"
         android:text="@string/gs_points_speed_info"
         android:textColor="@color/dark_gray"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.408"
+        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/gs_points_speed_text" />
-
-    <Button
-        android:id="@+id/btn_gs_language_finnish"
-        android:layout_width="110dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="54dp"
-        android:text="@string/gs_lang_fin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gs_language_text" />
-
-
-    <Button
-        android:id="@+id/btn_gs_language_english"
-        android:layout_width="110dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="70dp"
-        android:text="@string/gs_lang_eng"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gs_language_text" />
 
     <Button
         android:id="@+id/btn_gs_points_speed_yes"
         android:layout_width="110dp"
         android:layout_height="56dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="308dp"
         android:text="@string/gc_yes"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="@{() -> gameSettingsViewModel.onSpeedEntryEnabled()}"
+        app:layout_constraintTop_toTopOf="@+id/gs_language_text" />
+
+    <TextView
+        android:id="@+id/gs_points_speed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="177dp"
+        android:text="@string/gs_points_speed"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gs_language_text" />
 
     <Button
-        android:id="@+id/btn_gs_points_speed_no"
+        android:id="@+id/btn_gs_language_finnish"
         android:layout_width="110dp"
         android:layout_height="56dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginTop="312dp"
-        android:text="@string/gc_no"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/gs_lang_fin"
         app:layout_constraintStart_toStartOf="parent"
+        android:onClick="@{() -> gameSettingsViewModel.onFinnish()}"
         app:layout_constraintTop_toTopOf="@+id/gs_language_text" />
+
+    <Button
+        android:id="@+id/btn_gs_language_english"
+        android:layout_width="110dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="76dp"
+        android:text="@string/gs_lang_eng"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="@{() -> gameSettingsViewModel.onEnglish()}"
+        app:layout_constraintTop_toTopOf="@+id/gs_language_text" />
+
+    <TextView
+        android:id="@+id/gs_language_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="177dp"
+        android:text="@string/gs_lang"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigationBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

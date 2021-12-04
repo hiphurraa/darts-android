@@ -10,8 +10,8 @@ data class AppSettings(
     val id: Int,
 
     @ColumnInfo(name = "language")
-    val language: String? = "FI",
+    var language: String? = "FI",
 
     @ColumnInfo(name = "points_speed_entry")
-    val speedEntryEnabled: Boolean? = false
+    var speedEntryEnabled: Boolean? = false
 )
