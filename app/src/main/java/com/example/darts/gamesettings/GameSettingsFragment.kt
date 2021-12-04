@@ -1,13 +1,17 @@
 package com.example.darts.gamesettings
 
+import android.graphics.Color
+import android.graphics.Color.parseColor
 import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.*
+import androidx.navigation.Navigation
 import com.example.darts.R
 import com.example.darts.database.AppSettingsDao
 import com.example.darts.database.DartsDatabase
@@ -25,13 +29,45 @@ class GameSettingsFragment: Fragment() {
     private lateinit var database: DartsDatabase
     private lateinit var appSettingsDao: AppSettingsDao
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentGameSettingsBinding.inflate(inflater, container, false)
 
+        binding.navigationBar.tvTitle.text = getString(R.string.gs_nav_title);
+
         val context = requireActivity().applicationContext
         database = DartsDatabase.getInstance(context)
         appSettingsDao = database.appSettingsDao()
+
+        val viewModelFactory = GameSettingsViewModelFactory(appSettingsDao)
+
+        val gameSettingsViewModel = ViewModelProvider(this, viewModelFactory).get(GameSettingsViewModel::class.java)
+
+        binding.gameSettingsViewModel = gameSettingsViewModel
+
+        binding.setLifecycleOwner(this)
+
+        val appSettingsObserver = Observer<AppSettings> { AppSettings ->
+            if(AppSettings.language == "FI") {
+                binding.btnGsLanguageEnglish.setBackgroundColor(getColor(context, R.color.dark_gray))
+                binding.btnGsLanguageFinnish.setBackgroundColor(getColor(context, R.color.main_blue))
+            } else {
+                binding.btnGsLanguageFinnish.setBackgroundColor(getColor(context, R.color.dark_gray))
+                binding.btnGsLanguageEnglish.setBackgroundColor(getColor(context, R.color.main_blue))
+            }
+
+            if(AppSettings.speedEntryEnabled!!) {
+                binding.btnGsPointsSpeedYes.setBackgroundColor(getColor(context, R.color.main_blue))
+                binding.btnGsPointsSpeedNo.setBackgroundColor(getColor(context, R.color.dark_gray))
+            } else {
+                binding.btnGsPointsSpeedYes.setBackgroundColor(getColor(context, R.color.dark_gray))
+                binding.btnGsPointsSpeedNo.setBackgroundColor(getColor(context, R.color.main_blue))
+
+            }
+        }
+
+        gameSettingsViewModel.getAppSettings().observe(viewLifecycleOwner, appSettingsObserver)
 
         return binding.root
     }
@@ -39,58 +75,10 @@ class GameSettingsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var appSettings: AppSettings?
-        runBlocking {
-            appSettings = getSettings()
-        }
-        if(appSettings == null) {
-            runBlocking {
-                appSettings = insertDefaultSettings()
-            }
-        }
-
-        // Button clicks
-        binding.btnGsLanguageEnglish.setOnClickListener {
-            val newSettings = AppSettings(appSettings?.id!!, "ENG", appSettings?.speedEntryEnabled!!)
-            updateSettings(newSettings)
-        }
-
-        binding.btnGsLanguageFinnish.setOnClickListener {
-            val newSettings = AppSettings(appSettings?.id!!, "FI", appSettings?.speedEntryEnabled!!)
-            updateSettings(newSettings)
-        }
-
-        binding.btnGsPointsSpeedNo.setOnClickListener {
-            val newSettings = AppSettings(appSettings?.id!!, appSettings?.language!!, false)
-            updateSettings(newSettings)
-        }
-
-        binding.btnGsPointsSpeedYes.setOnClickListener {
-            val newSettings = AppSettings(appSettings?.id!!, appSettings?.language!!, true)
-            updateSettings(newSettings)
-        }
-    }
-
-     private suspend fun getSettings(): AppSettings? {
-        var appSettings: AppSettings? = null
-        var job = GlobalScope.launch {
-            appSettings = appSettingsDao.getSettings()
-        }
-        job.join()
-        return appSettings
-    }
-
-    private fun insertDefaultSettings(): AppSettings {
-        val defaultAppSettings: AppSettings = AppSettings(1, "FI", false)
-        GlobalScope.launch {
-            appSettingsDao.insertSettings("FI", false)
-        }
-        return defaultAppSettings
-    }
-
-    private fun updateSettings(updatedAppSettings: AppSettings) {
-        GlobalScope.launch(context =  Dispatchers.Default){
-            appSettingsDao.updateAppSettings(updatedAppSettings)
+        // Back button
+        binding.navigationBar.btnBack.setOnClickListener {
+            //d("layhyv", appSettings.value?.language.toString())
+            Navigation.findNavController(view).navigate(R.id.action_gameSettingsFragment_to_gameMenuFragment)
         }
     }
 }
