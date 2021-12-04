@@ -7,23 +7,36 @@
     <LinearLayout
         android:id="@+id/llPlayerSelection"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateNewPlayer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/light_gray"
         android:paddingVertical="50dp"
         android:layout_marginHorizontal="35dp">
 
-        <TextView
-            android:id="@+id/tvTest"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPlayersList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pelaajien valinta"
-            android:textAlignment="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_height="match_parent">
+            
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCreateNewPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/llPlayerSelection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnContinue"
+        android:layout_marginHorizontal="35dp"
+        android:text="@string/gc_create_new_player"
+        android:backgroundTint="@color/medium_gray"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/btnContinue"
@@ -36,8 +49,9 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/llPlayerSelection"
+        app:layout_constraintTop_toBottomOf="@id/btnCreateNewPlayer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

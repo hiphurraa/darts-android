@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
     app:startDestination="@id/gameMenuFragment">
 
@@ -28,6 +29,9 @@
         <action
             android:id="@+id/action_gameCreationFragment_to_gameMenuFragment"
             app:destination="@id/gameMenuFragment" />
+        <action
+            android:id="@+id/action_gameCreationFragment_to_playerCreationFragment"
+            app:destination="@id/playerCreationFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameSettingsFragment"
@@ -52,5 +56,14 @@
         <argument
             android:name="inGameSettings"
             app:argType="com.example.darts.InGameSettings" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerCreationFragment"
+        android:name="com.example.darts.playercreation.PlayerCreationFragment"
+        android:label="fragment_player_creation"
+        tools:layout="@layout/fragment_player_creation" >
+        <action
+            android:id="@+id/action_playerCreationFragment_to_gameCreationFragment"
+            app:destination="@id/gameCreationFragment" />
     </fragment>
 </navigation>

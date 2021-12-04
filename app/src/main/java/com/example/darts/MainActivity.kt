@@ -20,11 +20,13 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var isInGame: Boolean = false
+        lateinit var playerDao: PlayerDao
+        lateinit var appSettingsDao: AppSettingsDao
     }
 
     private lateinit var database: DartsDatabase
-    private lateinit var playerDao: PlayerDao
-    private lateinit var appSettingsDao: AppSettingsDao
+    //private lateinit var playerDao: PlayerDao
+    //private lateinit var appSettingsDao: AppSettingsDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

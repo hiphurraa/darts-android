@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import com.example.darts.InGameSettings
 import com.example.darts.MainActivity
 import com.example.darts.R
+import com.example.darts.database.entities.Player
 import com.example.darts.databinding.FragmentGameCreationBinding
 
 private var _binding: FragmentGameCreationBinding? = null
@@ -51,12 +52,17 @@ class GameCreationFragment: Fragment() {
             }
         }
 
-        /** Continue button functionality */
+        /** First view continue button */
         binding.gameCreationFirstView.btnContinue.setOnClickListener {
             binding.gameCreationFirstView.root.visibility = View.INVISIBLE
             binding.gameCreationSecondView.root.visibility = View.VISIBLE
             currentView = SECOND_VIEW
+
+            var players: List<Player> = MainActivity.playerDao.getAll()
+            binding.gameCreationSecondView.rvPlayersList
         }
+
+        /** Second view continue button */
         binding.gameCreationSecondView.btnContinue.setOnClickListener {
             binding.gameCreationSecondView.root.visibility = View.INVISIBLE
             binding.gameCreationThirdView.root.visibility = View.VISIBLE
@@ -66,7 +72,7 @@ class GameCreationFragment: Fragment() {
             val startingPointsId = binding.gameCreationFirstView.rgStartingPoints.checkedRadioButtonId
             binding.gameCreationThirdView.tvStartingPoints.text = requireView().findViewById<RadioButton>(startingPointsId).text.toString()
 
-            // Show starts with double
+            /** Show starts with double */
             val startsWithDoubleId = binding.gameCreationFirstView.rgStartWithDouble.checkedRadioButtonId
             val startsWithDouble: Boolean = requireView().findViewById<RadioButton>(startsWithDoubleId).text.toString()
                 .equals(resources.getString(R.string.gc_yes))
@@ -77,9 +83,16 @@ class GameCreationFragment: Fragment() {
             // Show players
             binding.gameCreationThirdView.tvSelectedPlayers.text = "Tomi ja Lauri"
         }
+
+        /** Start game button */
         binding.gameCreationThirdView.btnContinue.setOnClickListener {
             currentView = FIRST_VIEW
             this.startGame(view)
+        }
+
+        /** Create new player button */
+        binding.gameCreationSecondView.btnCreateNewPlayer.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_gameCreationFragment_to_playerCreationFragment)
         }
     }
 

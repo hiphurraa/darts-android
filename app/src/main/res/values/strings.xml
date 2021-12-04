@@ -24,7 +24,12 @@
     <string name="gc_501">501</string>
     <string name="gc_start_game">Aloita peli</string>
     <string name="gc_selected_players">Valitut pelaajat</string>
+    <string name="gc_create_new_player">+ Luo uusi pelaaja</string>
 
+    <!-- Player creation -->
+    <string name="pc_nav_title">Uusi pelaaja</string>
+    <string name="pc_player_name">Pelaajan nimi</string>
+    <string name="pc_option_auto_select">Valitse tämä pelaaja alkavaan peliin</string>
 
     <!-- Game screen -->
 
@@ -38,6 +43,8 @@
     <string name="gs_lang">Kieli</string>
     <string name="gs_points_speed">Pisteiden pikavalinta</string>
     <string name="gs_points_speed_info">Jos päällä, pisteiden syöttöä ei tarvitse vahvistaa "OK"-näppäimellä</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
