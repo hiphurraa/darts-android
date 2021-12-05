@@ -2,16 +2,13 @@ package com.example.darts
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log.d
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.room.Room
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.darts.database.AppSettingsDao
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
-import com.example.darts.database.entities.Player
+import com.example.darts.gamecreation.PlayerRecyclerAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,13 +17,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var isInGame: Boolean = false
-        lateinit var playerDao: PlayerDao
-        lateinit var appSettingsDao: AppSettingsDao
     }
 
     private lateinit var database: DartsDatabase
-    //private lateinit var playerDao: PlayerDao
-    //private lateinit var appSettingsDao: AppSettingsDao
+    private lateinit var playerDao: PlayerDao
+    private lateinit var appSettingsDao: AppSettingsDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
