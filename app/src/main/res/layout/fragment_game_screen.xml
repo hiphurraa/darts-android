@@ -27,61 +27,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:id="@+id/tvPlayer_0"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="player longnameeeeee - 501 (Viimeisin 180)"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPlayersList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tvPlayer_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="player longnameeeeee - 501 (Viimeisin 180)"
-                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_0"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tvPlayer_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="player longnameeeeee - 501 (Viimeisin 180)"
-                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_1"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tvPlayer_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="player longnameeeeee - 501 (Viimeisin 180)"
-                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_2"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tvPlayer_4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="player longnameeeeee - 501 (Viimeisin 180)"
-                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_3"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tvPlayer_5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="player longnameeeeee - 501 (Viimeisin 180)"
-                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_4"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tvPlayer_6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="player longnameeeeee - 501 (Viimeisin 180)"
-                app:layout_constraintTop_toBottomOf="@+id/tvPlayer_5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageButton
                 android:id="@+id/btnMenu"

@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.darts.R
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
 import com.example.darts.databinding.FragmentPlayerCreationBinding
-import com.example.darts.gamecreation.PlayerRecyclerAdapter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -71,6 +69,7 @@ class PlayerCreationFragment: Fragment() {
     private fun validatePlayerName (playerName: String): String {
         // TODO: Validate more thoroughly
         return if (playerName.length > 20) resources.getString(R.string.pc_name_too_long)
+        else if (playerName.length < 3) resources.getString(R.string.pc_name_too_short)
         else "ok"
     }
 

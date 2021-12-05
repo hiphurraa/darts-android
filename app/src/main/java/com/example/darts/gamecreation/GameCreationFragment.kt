@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.darts.InGameSettings
@@ -13,6 +16,7 @@ import com.example.darts.MainActivity
 import com.example.darts.R
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
+import com.example.darts.database.entities.Player
 import com.example.darts.databinding.FragmentGameCreationBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -29,7 +33,11 @@ class GameCreationFragment: Fragment() {
 
     private lateinit var database: DartsDatabase
     private lateinit var playerDao: PlayerDao
+    private var selectedPlayers: MutableList<Player> = mutableListOf()
 
+    companion object {
+        lateinit var players: List<Player>
+    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -37,12 +45,18 @@ class GameCreationFragment: Fragment() {
         _binding = FragmentGameCreationBinding.inflate(inflater, container, false)
 
         val context = requireActivity().applicationContext
+        database = DartsDatabase.getInstance(context)
+        playerDao = database.playerDao()
 
         GlobalScope.launch {
-            database = DartsDatabase.getInstance(context)
-            playerDao = database.playerDao()
-            val players = playerDao.getAll()
-            binding.gameCreationSecondView.rvPlayersList.adapter = PlayerRecyclerAdapter(players)
+            players = playerDao.getAll()
+            if (players.isEmpty()) {
+                binding.gameCreationSecondView.tvNoPlayersYet.visibility = View.VISIBLE
+            }
+            else {
+                binding.gameCreationSecondView.tvNoPlayersYet.visibility = View.GONE
+            }
+            binding.gameCreationSecondView.rvPlayersList.adapter = PlayersListAdapter(players)
             binding.gameCreationSecondView.rvPlayersList.layoutManager = LinearLayoutManager(activity)
         }
 
@@ -98,17 +112,33 @@ class GameCreationFragment: Fragment() {
                 if (startsWithDouble) resources.getString(R.string.gc_yes)
                 else resources.getString(R.string.gc_no)
 
-            /** Show players */
-            binding.gameCreationThirdView.tvSelectedPlayers.text = "Tomi ja Lauri"
+            /** Show selected players */
+            selectedPlayers.clear()
+            players.forEach {
+                if (it.defaultSelected) selectedPlayers.add(it)
+            }
+
+            binding.gameCreationThirdView.rvSelectedPlayersList.adapter = SelectedPlayersListAdapter(selectedPlayers)
+            binding.gameCreationThirdView.rvSelectedPlayersList.layoutManager = LinearLayoutManager(activity)
         }
 
-        /** Start game button */
+        /** 'Start game' button */
         binding.gameCreationThirdView.btnContinue.setOnClickListener {
-            currentView = FIRST_VIEW
-            this.startGame(view)
+
+            /** At least 1 player selected, but not over 10 players */
+            if (selectedPlayers.isEmpty()) {
+                Toast.makeText(view.context, resources.getString(R.string.gc_no_players_selected), Toast.LENGTH_SHORT).show()
+            }
+            else if (selectedPlayers.size > 10) {
+                Toast.makeText(view.context, resources.getString(R.string.gc_too_many_players_selected), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                currentView = FIRST_VIEW
+                this.startGame(view)
+            }
         }
 
-        /** Create new player button */
+        /** 'Create new player' button */
         binding.gameCreationSecondView.btnCreateNewPlayer.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_gameCreationFragment_to_playerCreationFragment)
         }
@@ -118,22 +148,18 @@ class GameCreationFragment: Fragment() {
 
     /** Create InGameSettings object and start the game with the settings */
     private fun startGame(view: View) {
+
         /** Get starting points from radio group */
         val startingPointsId = binding.gameCreationFirstView.rgStartingPoints.checkedRadioButtonId
-        val startingPoints: String = requireView().findViewById<RadioButton>(startingPointsId).text.toString()
+        val startingPoints: Int = requireView().findViewById<RadioButton>(startingPointsId).text.toString().toInt()
 
         /** Get starts with double from radio group */
         val startsWithDoubleId = binding.gameCreationFirstView.rgStartWithDouble.checkedRadioButtonId
         val startsWithDouble: Boolean = requireView().findViewById<RadioButton>(startsWithDoubleId).text.toString()
             .equals(resources.getString(R.string.gc_yes))
 
-        // TODO: implement players selection
-        val playersIds = ArrayList<Int>(10)
-        playersIds.add(0)
-        playersIds.add(1)
-
         /** Create in-game settings object */
-        val inGameSettings = InGameSettings(startingPoints, startsWithDouble, playersIds)
+        val inGameSettings = InGameSettings(startingPoints, startsWithDouble, selectedPlayers)
         val action = GameCreationFragmentDirections.actionGameCreationFragmentToGameScreenFragment(inGameSettings)
         Navigation.findNavController(view).navigate(action)
         MainActivity.isInGame = true

@@ -25,12 +25,17 @@
     <string name="gc_start_game">Aloita peli</string>
     <string name="gc_selected_players">Valitut pelaajat</string>
     <string name="gc_create_new_player">+ Luo uusi pelaaja</string>
+    <string name="gc_pick_players">Valitse pelaajat</string>
+    <string name="gc_no_players_yet">Ei luotuja pelaajia</string>
+    <string name="gc_no_players_selected">Valitse ainakin yksi pelaaja!</string>
+    <string name="gc_too_many_players_selected">Valitse enintään 10 pelaajaa!</string>
 
     <!-- Player creation -->
     <string name="pc_nav_title">Uusi pelaaja</string>
     <string name="pc_player_name">Pelaajan nimi</string>
     <string name="pc_option_auto_select">Valitse tämä pelaaja alkavaan peliin</string>
-    <string name="pc_name_too_long">Pelaajan nimi max 20 merkkiä!</string>
+    <string name="pc_name_too_long">Pelaajan nimi enintään 20 merkkiä!</string>
+    <string name="pc_name_too_short">Pelaajan nimi vähintään 3 merkkiä!</string>
     <string name="pc_create_player">Luo pelaaja</string>
 
     <!-- Game screen -->

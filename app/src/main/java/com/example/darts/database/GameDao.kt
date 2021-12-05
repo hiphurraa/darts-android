@@ -1,9 +1,7 @@
 package com.example.darts.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.example.darts.database.entities.Game
 import com.example.darts.database.relations.GameWithPlayers
 
@@ -11,6 +9,12 @@ import com.example.darts.database.relations.GameWithPlayers
 interface GameDao {
     @Query("SELECT * FROM darts_games_table")
     fun getAll(): LiveData<List<Game>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertGame(vararg game: Game): Long
+
+//    @Query("INSERT INTO darts_games_table(starting_points, name, start_time) VALUES (:startingPoints, :name, :startTime);")
+//    fun insertGame(startingPoints: Int, name: String, startTime: Long): Long
 
 //    @Transaction
 //    @Query("SELECT * FROM darts_games_table")

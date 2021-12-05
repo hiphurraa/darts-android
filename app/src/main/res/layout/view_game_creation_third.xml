@@ -87,19 +87,12 @@
             android:textSize="20sp"
             android:textColor="@color/black"/>
 
-        <TextView
-            android:id="@+id/tvSelectedPlayers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="15dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSelectedPlayersList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
-
-
 
     <Button
         android:id="@+id/btnContinue"

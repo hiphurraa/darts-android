@@ -3,12 +3,9 @@ package com.example.darts
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.darts.database.AppSettingsDao
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
-import com.example.darts.gamecreation.PlayerRecyclerAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
