@@ -3,7 +3,6 @@ package com.example.darts.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.darts.database.entities.Game
-import com.example.darts.database.relations.GameWithPlayers
 
 @Dao
 interface GameDao {

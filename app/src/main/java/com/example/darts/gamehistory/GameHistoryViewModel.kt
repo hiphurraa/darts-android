@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.darts.database.GameDao
 import com.example.darts.database.entities.Game
-import com.example.darts.database.relations.GameWithPlayers
 
 class GameHistoryViewModel(dataSource: GameDao): ViewModel() {
     val gameDatabase = dataSource

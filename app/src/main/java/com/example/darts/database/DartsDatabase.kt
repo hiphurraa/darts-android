@@ -4,16 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.darts.database.entities.AppSettings
-import com.example.darts.database.entities.Game
-import com.example.darts.database.entities.Player
-import com.example.darts.database.entities.Throw
+import com.example.darts.database.entities.*
 
-@Database(entities = [Player::class, Game::class, Throw::class, AppSettings::class], version = 1)
+@Database(entities = [Player::class, Game::class, Toss::class, AppSettings::class], version = 1)
 abstract class DartsDatabase : RoomDatabase() {
     abstract fun playerDao(): PlayerDao
     abstract fun gameDao(): GameDao
-    abstract fun throwDao(): ThrowDao
+    abstract fun tossDao(): TossDao
     abstract  fun appSettingsDao(): AppSettingsDao
 
     companion object {

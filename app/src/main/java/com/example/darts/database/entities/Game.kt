@@ -8,14 +8,14 @@ import java.sql.Timestamp
 @Entity(tableName = "darts_games_table")
 data class Game (
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    var id: Long = 0,
 
     @ColumnInfo(name = "start_time")
-    val startTime: Long = System.currentTimeMillis(),
+    var startTime: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name = "starting_points")
-    val startingPoints: Int?,
+    var startingPoints: Int,
 
     @ColumnInfo(name = "name")
-    val name: String?
+    var name: String
 )
