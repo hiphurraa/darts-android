@@ -30,6 +30,8 @@
     <string name="pc_nav_title">Uusi pelaaja</string>
     <string name="pc_player_name">Pelaajan nimi</string>
     <string name="pc_option_auto_select">Valitse tämä pelaaja alkavaan peliin</string>
+    <string name="pc_name_too_long">Pelaajan nimi max 20 merkkiä!</string>
+    <string name="pc_create_player">Luo pelaaja</string>
 
     <!-- Game screen -->
 
