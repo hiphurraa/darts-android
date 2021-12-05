@@ -1,6 +1,7 @@
 package com.example.darts.gamescreen
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,14 +33,15 @@ class GameScreenFragment: Fragment() {
         _binding = FragmentGameScreenBinding.inflate(inflater, container, false)
 
         inGameSettings = args.inGameSettings
+
         val context = requireActivity().applicationContext
+        database = DartsDatabase.getInstance(context)
+        gameDao = database.gameDao()
+        val game: Game = Game(0, System.currentTimeMillis(), inGameSettings.startingPoints, "Unnamed game" )
 
         GlobalScope.launch {
-            database = DartsDatabase.getInstance(context)
-            gameDao = database.gameDao()
-            // TODO: Implement saving the game to database
-            val game = Game(0, System.currentTimeMillis(), inGameSettings.startingPoints, "Unnamed game")
-            gameDao.insertGame(game)
+            val id = gameDao.insertGame(game)
+            d("CREATED_GAME", id.toString())
         }
 
         return binding.root

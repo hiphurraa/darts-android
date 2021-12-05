@@ -11,7 +11,7 @@ interface GameDao {
     fun getAll(): LiveData<List<Game>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGame(vararg game: Game): Long
+    fun insertGame(game: Game): Long
 
 //    @Query("INSERT INTO darts_games_table(starting_points, name, start_time) VALUES (:startingPoints, :name, :startTime);")
 //    fun insertGame(startingPoints: Int, name: String, startTime: Long): Long
