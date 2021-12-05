@@ -39,7 +39,9 @@
         android:label="@string/fragment_label_game_settings" >
         <action
             android:id="@+id/action_gameSettingsFragment_to_gameMenuFragment"
-            app:destination="@id/gameMenuFragment" />
+            app:destination="@id/gameMenuFragment"
+            app:popUpTo="@id/gameMenuFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/gameHistoryFragment"
@@ -47,7 +49,8 @@
         android:label="@string/fragment_label_game_history" >
         <action
             android:id="@+id/action_gameHistoryFragment_to_gameMenuFragment"
-            app:destination="@id/gameMenuFragment" />
+            app:destination="@id/gameMenuFragment"
+            app:popUpTo="@id/gameMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameScreenFragment"
