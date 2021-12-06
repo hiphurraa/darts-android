@@ -134,14 +134,14 @@
 
                 <FrameLayout
                     android:id="@+id/flFactorDartOne"
-                    android:layout_height="0dp"
-                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
                     app:layout_constraintTop_toBottomOf="@+id/flScoreDartOne"
                     app:layout_constraintStart_toStartOf="@+id/flScoreDartOne"
                     app:layout_constraintEnd_toEndOf="@+id/flScoreDartOne"
-                    app:layout_constraintDimensionRatio="W,1:1"
+                    app:layout_constraintDimensionRatio="H,1:1"
                     android:background="@drawable/round_red_bg"
-                    android:padding="5dp"
+                    android:padding="7dp"
                     android:layout_marginTop="-10dp"
                     android:visibility="gone">
 
@@ -187,14 +187,14 @@
 
                 <FrameLayout
                     android:id="@+id/flFactorDartTwo"
-                    android:layout_height="0dp"
-                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
                     app:layout_constraintTop_toBottomOf="@+id/flScoreDartTwo"
                     app:layout_constraintStart_toStartOf="@+id/flScoreDartTwo"
                     app:layout_constraintEnd_toEndOf="@+id/flScoreDartTwo"
-                    app:layout_constraintDimensionRatio="W,1:1"
+                    app:layout_constraintDimensionRatio="H,1:1"
                     android:background="@drawable/round_red_bg"
-                    android:padding="5dp"
+                    android:padding="7dp"
                     android:layout_marginTop="-10dp"
                     android:visibility="gone">
 
@@ -240,14 +240,14 @@
 
                 <FrameLayout
                     android:id="@+id/flFactorDartThree"
-                    android:layout_height="0dp"
-                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
                     app:layout_constraintTop_toBottomOf="@+id/flScoreDartThree"
                     app:layout_constraintStart_toStartOf="@+id/flScoreDartThree"
                     app:layout_constraintEnd_toEndOf="@+id/flScoreDartThree"
-                    app:layout_constraintDimensionRatio="W,1:1"
+                    app:layout_constraintDimensionRatio="H,1:1"
                     android:background="@drawable/round_red_bg"
-                    android:padding="5dp"
+                    android:padding="7dp"
                     android:layout_marginTop="-10dp"
                     android:visibility="gone">
 

@@ -88,12 +88,16 @@ class GameScreenFragment: Fragment() {
     }
 
     fun undo() {
-        if (game.previewState) game.previewState = false
-
         if (game.orderNumber != 0) {
-            game.cancelPreviousToss()
-            factor = 1
-            updateGameUI()
+            if (game.iToss == 0 && !game.previewState) {
+                game.previewState = true
+                updateGameUI()
+            } else {
+                game.previewState = false
+                game.cancelPreviousToss()
+                factor = 1
+                updateGameUI()
+            }
         }
         else {
             Toast.makeText(context, resources.getString(R.string.gs_no_previous_turn), Toast.LENGTH_SHORT).show()
