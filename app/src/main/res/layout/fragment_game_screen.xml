@@ -303,7 +303,7 @@
                 android:text="peru"
                 android:backgroundTint="@color/xx_dark_gray"
                 android:textColor="#E1E1E1"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textAllCaps="false"/>
 
             <Button
@@ -315,18 +315,18 @@
                 android:text="25"
                 android:backgroundTint="@color/medium_gray"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
             <Button
-                android:id="@+id/btn50"
+                android:id="@+id/btnOk"
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_marginHorizontal="5dp"
-                android:text="50"
-                android:backgroundTint="@color/medium_gray"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:text="OK"
+                android:backgroundTint="@color/light_gray"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -613,7 +613,7 @@
                 android:text="ohi"
                 android:backgroundTint="@color/x_dark_gray"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textAllCaps="false" />
 
             <Button

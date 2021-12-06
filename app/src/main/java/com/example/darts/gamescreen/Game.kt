@@ -13,9 +13,10 @@ class Game (context: Context, val settings: Settings) {
 
     private var iPlayer: Int = 0 // Index of which players turn it is
     var iToss: Int = 0 // Represents which of the 3 tosses of turn is right now
-    private var orderNumber: Int = 0 // Increases +1 on every toss
+    var orderNumber: Int = 0 // Increases +1 on every toss
     private var iTurn = 0
     private val turns: MutableList<Turn> = mutableListOf(Turn(players[iPlayer]))
+    var previewState = false
 
     private val database = DartsDatabase.getInstance(context)
     private val gameDao = database.gameDao()
@@ -23,7 +24,7 @@ class Game (context: Context, val settings: Settings) {
 
 
     fun start(name: String) {
-        val gameEntity: GameEntity = GameEntity(0, System.currentTimeMillis(), settings.startingPoints, name)
+        val gameEntity = GameEntity(0, System.currentTimeMillis(), settings.startingPoints, name)
         players.forEach {
             it.score = settings.startingPoints
             it.doubleRequired = settings.startsWithDouble
@@ -37,14 +38,17 @@ class Game (context: Context, val settings: Settings) {
 
 
     fun newToss(points: Int, factor: Int) {
+        if (iToss == 2) previewState = true
+
         /** 'Starts with double' rule implementation */
         if (players[iPlayer].doubleRequired && factor != 2) {
             players[iPlayer].toss(tossDao, gameId, 0, 1, orderNumber)
+            turns[iTurn].tosses[iToss] = Toss(0, 1, false)
         } else {
             players[iPlayer].toss(tossDao, gameId, points, factor, orderNumber)
+            turns[iTurn].tosses[iToss] = Toss(points, factor, players[iPlayer].doubleRequired)
+            players[iPlayer].doubleRequired = false
         }
-
-        turns[iTurn].tosses[iToss] = Toss(points, factor)
 
         /** Change the toss and/or turn */
         if (iToss < 2) iToss += 1
@@ -59,17 +63,8 @@ class Game (context: Context, val settings: Settings) {
         orderNumber += 1
     }
 
-
     fun cancelPreviousToss() {
         orderNumber -= 1
-
-        /** Delete the previous toss from player */
-
-        val previousTotalPoints = 0
-        if (turns[iTurn].tosses[iToss] != null) {
-            (turns[iTurn].tosses[iToss]!!.points * turns[iTurn].tosses[iToss]!!.factor)
-        }
-        players[iPlayer].cancelToss(tossDao, gameId, orderNumber, previousTotalPoints)
 
         /** Reverse the toss and/or turn */
         if (iToss > 0) iToss -= 1
@@ -81,6 +76,13 @@ class Game (context: Context, val settings: Settings) {
             else iPlayer -= 1
         }
 
+        /** Delete the previous toss from player */
+        var previousTotalPoints = 0
+        if (turns[iTurn].tosses[iToss] != null) {
+            previousTotalPoints = (turns[iTurn].tosses[iToss]!!.points * turns[iTurn].tosses[iToss]!!.factor)
+        }
+        players[iPlayer].cancelToss(tossDao, gameId, orderNumber, previousTotalPoints)
+        if (turns[iTurn].tosses[iToss]!!.isFirstDouble) players[iPlayer].doubleRequired = true
         turns[iTurn].tosses[iToss] = null
     }
 
@@ -90,6 +92,11 @@ class Game (context: Context, val settings: Settings) {
 
     fun getCurrentTurn (): Turn {
         return turns[iTurn]
+    }
+
+    fun getPreviousTurn(): Turn {
+        return if (iTurn != 0) turns[iTurn-1]
+        else turns[iTurn]
     }
 
 

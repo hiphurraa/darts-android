@@ -39,6 +39,7 @@
     <string name="pc_create_player">Luo pelaaja</string>
 
     <!-- Game screen -->
+    <string name="gs_no_previous_turn">Ei aiempaa vuoroa!</string>
 
     <!-- Game history -->
     <string name="gh_nav_title">Pelihistoria</string>

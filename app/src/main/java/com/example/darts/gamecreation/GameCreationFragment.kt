@@ -38,7 +38,6 @@ class GameCreationFragment: Fragment() {
         lateinit var playerEntities: List<PlayerEntity>
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentGameCreationBinding.inflate(inflater, container, false)

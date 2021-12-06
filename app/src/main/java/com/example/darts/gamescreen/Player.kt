@@ -16,7 +16,7 @@ class Player (val playerId: Long, val name: String) {
             tossDao.insertToss(newToss)
         }
 
-        score += (points * factor)
+        score -= (points * factor)
     }
 
     fun cancelToss(tossDao: TossDao, gameId: Long, orderNumber: Int, totalPoints: Int) {
@@ -24,6 +24,6 @@ class Player (val playerId: Long, val name: String) {
             tossDao.deleteToss(gameId, orderNumber)
         }
 
-        score -= totalPoints
+        score += totalPoints
     }
 }
