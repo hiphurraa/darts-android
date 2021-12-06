@@ -13,4 +13,7 @@ interface TossDao {
 
     @Insert
     fun insertToss(toss: Toss): Long
+
+    @Query("DELETE FROM darts_toss_table WHERE gameId = :gameId AND orderNumber = :orderNumber;")
+    fun deleteToss(gameId: Long, orderNumber: Int)
 }

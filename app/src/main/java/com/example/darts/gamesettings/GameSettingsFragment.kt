@@ -1,6 +1,5 @@
 package com.example.darts.gamesettings
 
-import android.graphics.Color
 import android.graphics.Color.parseColor
 import android.os.Bundle
 import android.util.Log.d

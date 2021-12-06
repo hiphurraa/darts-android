@@ -5,19 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.darts.InGameSettings
+import com.example.darts.gamescreen.Settings
 import com.example.darts.MainActivity
 import com.example.darts.R
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
-import com.example.darts.database.entities.Player
+import com.example.darts.database.entities.Player as PlayerEntity
 import com.example.darts.databinding.FragmentGameCreationBinding
+import com.example.darts.gamescreen.Player
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -36,7 +35,7 @@ class GameCreationFragment: Fragment() {
     private var selectedPlayers: MutableList<Player> = mutableListOf()
 
     companion object {
-        lateinit var players: List<Player>
+        lateinit var playerEntities: List<PlayerEntity>
     }
 
 
@@ -49,14 +48,14 @@ class GameCreationFragment: Fragment() {
         playerDao = database.playerDao()
 
         GlobalScope.launch {
-            players = playerDao.getAll()
-            if (players.isEmpty()) {
+            playerEntities = playerDao.getAll()
+            if (playerEntities.isEmpty()) {
                 binding.gameCreationSecondView.tvNoPlayersYet.visibility = View.VISIBLE
             }
             else {
                 binding.gameCreationSecondView.tvNoPlayersYet.visibility = View.GONE
             }
-            binding.gameCreationSecondView.rvPlayersList.adapter = PlayersListAdapter(players)
+            binding.gameCreationSecondView.rvPlayersList.adapter = PlayersListAdapter(playerEntities)
             binding.gameCreationSecondView.rvPlayersList.layoutManager = LinearLayoutManager(activity)
         }
 
@@ -114,8 +113,13 @@ class GameCreationFragment: Fragment() {
 
             /** Show selected players */
             selectedPlayers.clear()
-            players.forEach {
-                if (it.defaultSelected) selectedPlayers.add(it)
+            playerEntities.forEach {
+
+                if (it.defaultSelected) {
+                    val newPlayer = Player(it.id, it.name)
+                    selectedPlayers.add(newPlayer)
+                }
+
             }
 
             binding.gameCreationThirdView.rvSelectedPlayersList.adapter = SelectedPlayersListAdapter(selectedPlayers)
@@ -146,7 +150,7 @@ class GameCreationFragment: Fragment() {
 
 
 
-    /** Create InGameSettings object and start the game with the settings */
+    /** Create Settings object and start the game with the settings */
     private fun startGame(view: View) {
 
         /** Get starting points from radio group */
@@ -159,7 +163,7 @@ class GameCreationFragment: Fragment() {
             .equals(resources.getString(R.string.gc_yes))
 
         /** Create in-game settings object */
-        val inGameSettings = InGameSettings(startingPoints, startsWithDouble, selectedPlayers)
+        val inGameSettings = Settings(startingPoints, startsWithDouble, selectedPlayers)
         val action = GameCreationFragmentDirections.actionGameCreationFragmentToGameScreenFragment(inGameSettings)
         Navigation.findNavController(view).navigate(action)
         MainActivity.isInGame = true

@@ -1,6 +1,5 @@
 package com.example.darts.gamesettings
 
-import android.provider.Settings
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.darts.database.AppSettingsDao

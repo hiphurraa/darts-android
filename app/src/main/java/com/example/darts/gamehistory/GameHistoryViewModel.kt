@@ -3,12 +3,12 @@ package com.example.darts.gamehistory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.darts.database.GameDao
-import com.example.darts.database.entities.Game
+import com.example.darts.database.entities.Game as GameEntity
 
 class GameHistoryViewModel(dataSource: GameDao): ViewModel() {
     val gameDatabase = dataSource
 
-    private val allGames: LiveData<List<Game>>
+    private val allGames: LiveData<List<GameEntity>>
     fun getAllGames() = allGames
 
     init {

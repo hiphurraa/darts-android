@@ -57,8 +57,8 @@
         android:name="com.example.darts.gamescreen.GameScreenFragment"
         android:label="GameScreenFragment" >
         <argument
-            android:name="inGameSettings"
-            app:argType="com.example.darts.InGameSettings" />
+            android:name="settings"
+            app:argType="com.example.darts.gamescreen.Settings" />
     </fragment>
     <fragment
         android:id="@+id/playerCreationFragment"

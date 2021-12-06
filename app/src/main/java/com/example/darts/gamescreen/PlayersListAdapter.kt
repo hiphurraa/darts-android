@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.darts.R
-import com.example.darts.database.entities.Player
 
-class PlayersListAdapter(private var players: List<Player>): RecyclerView.Adapter<PlayersListAdapter.MyViewHolder>() {
+class PlayersListAdapter(private var players: List<com.example.darts.gamescreen.Player>): RecyclerView.Adapter<PlayersListAdapter.MyViewHolder>() {
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvIngamePlayerName: TextView
