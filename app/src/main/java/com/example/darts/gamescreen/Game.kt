@@ -11,9 +11,11 @@ class Game (context: Context, val settings: Settings) {
     private val players: MutableList<Player> = settings.players
     private var gameId: Long = -1
 
-    private var iCurrentPlayer: Int = 0 // Index of which players turn it is
-    var turnStatus: Int = -1 // Represents which of the 3 tosses of turn is right now
+    private var iPlayer: Int = 0 // Index of which players turn it is
+    var iToss: Int = 0 // Represents which of the 3 tosses of turn is right now
     private var orderNumber: Int = 0 // Increases +1 on every toss
+    private var iTurn = 0
+    private val turns: MutableList<Turn> = mutableListOf(Turn(players[iPlayer]))
 
     private val database = DartsDatabase.getInstance(context)
     private val gameDao = database.gameDao()
@@ -22,22 +24,36 @@ class Game (context: Context, val settings: Settings) {
 
     fun start(name: String) {
         val gameEntity: GameEntity = GameEntity(0, System.currentTimeMillis(), settings.startingPoints, name)
+        players.forEach {
+            it.score = settings.startingPoints
+            it.doubleRequired = settings.startsWithDouble
+        }
 
         GlobalScope.launch {
             gameId = gameDao.insertGame(gameEntity)
-            turnStatus = 0
+            iToss = 0
         }
     }
 
 
-    fun newToss(points: Int) {
-        players[iCurrentPlayer].toss(tossDao, gameId, points, orderNumber)
+    fun newToss(points: Int, factor: Int) {
+        /** 'Starts with double' rule implementation */
+        if (players[iPlayer].doubleRequired && factor != 2) {
+            players[iPlayer].toss(tossDao, gameId, 0, 1, orderNumber)
+        } else {
+            players[iPlayer].toss(tossDao, gameId, points, factor, orderNumber)
+        }
 
-        if (turnStatus < 2) turnStatus += 1
+        turns[iTurn].tosses[iToss] = Toss(points, factor)
+
+        /** Change the toss and/or turn */
+        if (iToss < 2) iToss += 1
         else {
-            turnStatus = 0
-            if (iCurrentPlayer == players.size-1) iCurrentPlayer = 0
-            else iCurrentPlayer += 1
+            iToss = 0
+            if (iPlayer == players.size-1) iPlayer = 0
+            else iPlayer += 1
+            turns.add(Turn(players[iPlayer]))
+            iTurn += 1
         }
 
         orderNumber += 1
@@ -47,14 +63,33 @@ class Game (context: Context, val settings: Settings) {
     fun cancelPreviousToss() {
         orderNumber -= 1
 
-        if (turnStatus > 0) turnStatus -= 1
+        /** Delete the previous toss from player */
+
+        val previousTotalPoints = 0
+        if (turns[iTurn].tosses[iToss] != null) {
+            (turns[iTurn].tosses[iToss]!!.points * turns[iTurn].tosses[iToss]!!.factor)
+        }
+        players[iPlayer].cancelToss(tossDao, gameId, orderNumber, previousTotalPoints)
+
+        /** Reverse the toss and/or turn */
+        if (iToss > 0) iToss -= 1
         else {
-            turnStatus = 2
-            if (iCurrentPlayer == 0) iCurrentPlayer = players.size-1
-            else iCurrentPlayer -= 1
+            turns.removeAt(iTurn)
+            iTurn -= 1
+            iToss = 2
+            if (iPlayer == 0) iPlayer = players.size-1
+            else iPlayer -= 1
         }
 
-        players[iCurrentPlayer].cancelToss(tossDao, gameId, orderNumber)
+        turns[iTurn].tosses[iToss] = null
+    }
+
+    fun getCurrentPlayer(): Player {
+        return players[iPlayer]
+    }
+
+    fun getCurrentTurn (): Turn {
+        return turns[iTurn]
     }
 
 
