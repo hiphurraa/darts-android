@@ -1,13 +1,17 @@
 package com.example.darts.gamemenu
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.darts.R
+import com.example.darts.database.AppSettingsDao
+import com.example.darts.database.DartsDatabase
 import com.example.darts.databinding.FragmentGameMenuBinding
+import kotlinx.coroutines.runBlocking
 
 private var _binding: FragmentGameMenuBinding? = null
 // This property is only valid between onCreateView and

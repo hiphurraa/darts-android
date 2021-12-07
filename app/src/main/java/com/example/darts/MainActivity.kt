@@ -3,12 +3,15 @@ package com.example.darts
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.LiveData
 import com.example.darts.database.AppSettingsDao
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
+import com.example.darts.database.entities.AppSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,12 +38,12 @@ class MainActivity : AppCompatActivity() {
 
     fun createDefaultSettingsIfNotExist() {
         GlobalScope.launch(context = Dispatchers.Default) {
-            val settings = appSettingsDao.getSettings()
+            val settings = appSettingsDao.getSettingsSync()
             if(settings == null) {
-                appSettingsDao.insertSettings("FI", false)
+                val defaultSettings = AppSettings(1L, "FI", false)
+                appSettingsDao.insertSettings(defaultSettings)
             }
         }
-
     }
 
 
