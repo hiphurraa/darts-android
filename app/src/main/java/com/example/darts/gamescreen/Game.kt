@@ -23,6 +23,8 @@ class Game (context: Context, val settings: Settings) {
     private val gameDao = database.gameDao()
     val tossDao = database.tossDao()
 
+    var gameOver = false
+
 
 
     /** Starts a new game and saves it to database */
@@ -42,38 +44,89 @@ class Game (context: Context, val settings: Settings) {
 
 
     fun newToss(points: Int, factor: Int) {
-        if (players[iPlayer].iToss == 2) previewState = true
+        val player = players[iPlayer]
+        val turn = turns[iTurn]
 
-        var newToss = Toss(points, factor, players[iPlayer].doubleRequired)
+        if (player.iToss == 2) previewState = true
+
+        var newToss = Toss(points, factor, player.doubleRequired)
         if (factor == 2){
-            players[iPlayer].doubleRequired = false
+            player.doubleRequired = false
         }
         /** Player still need the double, set points to 0 */
-        else if (players[iPlayer].doubleRequired) {
+        else if (player.doubleRequired) {
             newToss = Toss(0, factor, false)
         }
 
-        turns[iTurn].tosses[players[iPlayer].iToss] = newToss
-        players[iPlayer].toss(this, newToss)
+        val tossOutCome = player.checkToss(newToss)
 
-        if (players[iPlayer].iToss == 0) {
-            /** Before changing turn save the current turn as latest */
-            players[iPlayer].latestTurn = turns[iTurn]
+        when (tossOutCome) {
+            Player.WINNER -> {
+                player.toss(this, newToss)
+            }
+            Player.BUST -> {
+                /** Rest tosses are 0  */
+                while (player.iToss != 2){
+                    turn.tosses[player.iToss] = Toss(0, 0, false)
+                    player.toss(this, Toss(0, 0, false))
 
-            /** Go to next turn */
-            turns.add(Turn())
-            iTurn += 1
+                    orderNumber += 1
+                }
+                turn.tosses[player.iToss] = Toss(0, 0, false)
+                player.toss(this, Toss(0, 0, false))
+                orderNumber += 1
 
-            /** Update the iPlayer index */
-            if (iPlayer < players.size-1) iPlayer += 1
-            else iPlayer = 0
+                turn.bust = true
+                player.latestTurn = turn
+
+                /** Go to next turn */
+                turns.add(Turn())
+                iTurn += 1
+
+                /** Update the iPlayer index */
+                if (iPlayer < players.size-1) iPlayer += 1
+                else iPlayer = 0
+                players.forEach { it.isCurrentPlayer = false }
+                players[iPlayer].isCurrentPlayer = true
+
+                bust()
+            }
+            else -> {
+                /** Normal toss */
+
+                turn.tosses[player.iToss] = newToss
+                player.toss(this, newToss)
+
+                if (player.iToss == 0) {
+                    /** Before changing turn save the current turn as latest */
+                    player.latestTurn = turn
+
+                    /** Go to next turn */
+                    turns.add(Turn())
+                    iTurn += 1
+
+                    /** Update the iPlayer index */
+                    if (iPlayer < players.size-1) iPlayer += 1
+                    else iPlayer = 0
+                }
+
+                orderNumber += 1
+                players.forEach { it.isCurrentPlayer = false }
+                players[iPlayer].isCurrentPlayer = true
+
+            }
         }
-
-        orderNumber += 1
-        players.forEach { it.isCurrentPlayer = false }
-        players[iPlayer].isCurrentPlayer = true
     }
 
+
+    private fun bust() {
+        repeat(3) {
+            cancelPreviousToss()
+        }
+        repeat(3) {
+            newToss(0, 1)
+        }
+    }
 
 
     fun cancelPreviousToss() {
@@ -100,7 +153,6 @@ class Game (context: Context, val settings: Settings) {
         }
 
         turns[iTurn].tosses[players[iPlayer].iToss] = null
-
     }
 
 

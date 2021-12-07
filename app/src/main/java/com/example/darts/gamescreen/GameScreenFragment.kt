@@ -231,6 +231,10 @@ class GameScreenFragment: Fragment() {
                 }
             }
         }
+
+        if (game.gameOver) {
+            Toast.makeText(context, "Game over!", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

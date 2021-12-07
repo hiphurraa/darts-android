@@ -6,6 +6,12 @@ import kotlinx.coroutines.launch
 
 class Player (val playerId: Long, val name: String) {
 
+    companion object {
+        val OK = "OK"
+        val BUST = "BUST"
+        val WINNER = "WINNER"
+    }
+
     var pointsLeft: Int = -1
     var doubleRequired: Boolean = true
     var latestTurn: Turn? = null
@@ -28,6 +34,27 @@ class Player (val playerId: Long, val name: String) {
         GlobalScope.launch {
             val tossEntity = TossEntity(0, game.gameId, playerId, toss.points, game.orderNumber)
             game.tossDao.insertToss(tossEntity)
+        }
+    }
+
+
+
+    fun checkToss(toss: Toss): String {
+        /** To win, points must go to exactly 0 and the last dart must hit a double */
+        if (pointsLeft - (toss.points * toss.factor) == 0 && toss.factor != 2) {
+            return BUST
+        }
+        /** Winner */
+        else if (pointsLeft - (toss.points * toss.factor) == 0 && toss.factor == 2){
+            return WINNER
+        }
+        /** If points go under 2, it's a bust */
+        else if (pointsLeft - (toss.points * toss.factor) < 2) {
+            return BUST
+        }
+        /** Normal turn */
+        else {
+            return OK
         }
     }
 
