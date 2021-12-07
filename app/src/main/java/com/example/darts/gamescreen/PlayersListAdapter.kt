@@ -1,5 +1,6 @@
 package com.example.darts.gamescreen
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.darts.R
 
-class PlayersListAdapter(private var players: List<com.example.darts.gamescreen.Player>): RecyclerView.Adapter<PlayersListAdapter.MyViewHolder>() {
+class PlayersListAdapter(private var players: List<Player>): RecyclerView.Adapter<PlayersListAdapter.MyViewHolder>() {
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvIngamePlayerName: TextView
@@ -26,6 +27,15 @@ class PlayersListAdapter(private var players: List<com.example.darts.gamescreen.
 
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
         viewHolder.tvIngamePlayerName.text = players[position].name
+
+        if(players[position].isCurrentPlayer) {
+            viewHolder.tvIngamePlayerName.setTextColor(Color.rgb(255, 255, 255))
+            viewHolder.tvIngamePlayerName.setBackgroundColor(Color.rgb(51, 116, 215))
+        }
+        else {
+            viewHolder.tvIngamePlayerName.setTextColor(Color.rgb(0, 0, 0))
+            viewHolder.tvIngamePlayerName.setBackgroundColor(Color.rgb(255, 255, 255))
+        }
     }
 
     override fun getItemCount() = players.size

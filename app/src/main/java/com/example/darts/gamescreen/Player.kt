@@ -10,6 +10,7 @@ class Player (val playerId: Long, val name: String) {
     var doubleRequired: Boolean = true
     var latestTurn: Turn? = null
     var iToss: Int = 0 // Index of 0-2, represents which of the 3 tosses of turn it is right now
+    var isCurrentPlayer: Boolean = false
 
 
     /** Saves the toss to database and decreases the points left */

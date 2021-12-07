@@ -20,6 +20,7 @@ class GameScreenFragment: Fragment() {
     private lateinit var settings: Settings
     private lateinit var game: Game
     private var factor: Int = 1
+    private lateinit var adapter: PlayersListAdapter
 
 
 
@@ -127,9 +128,13 @@ class GameScreenFragment: Fragment() {
             iToss = -1
             currentPlayer = game.getPreviousPlayer()
             binding.btnOk.setBackgroundColor(resources.getColor(R.color.main_blue))
-        } else {
+        }
+        else {
             binding.btnOk.setBackgroundColor(resources.getColor(R.color.light_gray))
         }
+
+        game.updatePlayerHighlight()
+        adapter.notifyDataSetChanged()
 
         /** Current player score and name */
         binding.tvCurrentPlayerScore.text = currentPlayer.pointsLeft.toString()
@@ -240,7 +245,8 @@ class GameScreenFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvPlayersList.adapter = PlayersListAdapter(settings.players)
+        adapter = PlayersListAdapter(settings.players)
+        binding.rvPlayersList.adapter = adapter
         binding.rvPlayersList.layoutManager = LinearLayoutManager(activity)
     }
 

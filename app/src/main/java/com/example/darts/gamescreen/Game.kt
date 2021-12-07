@@ -14,7 +14,7 @@ class Game (context: Context, val settings: Settings) {
     private var iPlayer: Int = 0 // Index of which players turn it is
     var orderNumber: Int = 0 // Increases +1 on every toss, needed for database
 
-    private val players: MutableList<Player> = settings.players
+    val players: MutableList<Player> = settings.players
     private val turns: MutableList<Turn> = mutableListOf(Turn())
 
     var previewState = false // When true, waits for ok button or undo from user
@@ -32,6 +32,7 @@ class Game (context: Context, val settings: Settings) {
             it.pointsLeft = settings.startingPoints
             it.doubleRequired = settings.startsWithDouble
         }
+        players[iPlayer].isCurrentPlayer = true
 
         GlobalScope.launch {
             gameId = gameDao.insertGame(gameEntity)
@@ -69,23 +70,10 @@ class Game (context: Context, val settings: Settings) {
         }
 
         orderNumber += 1
+        players.forEach { it.isCurrentPlayer = false }
+        players[iPlayer].isCurrentPlayer = true
     }
 
-    private fun getPreviousToss(): Toss? {
-        var turnIndex = iTurn
-        var playerIndex = iPlayer
-
-        /** Simulate the index logic */
-        if (players[playerIndex].iToss == 0){
-            turnIndex -= 1
-            if (playerIndex == 0) playerIndex = players.size-1
-            else playerIndex -= 1
-            return turns[turnIndex].tosses[2]
-        }
-        else {
-            return turns[iTurn].tosses[players[this.iPlayer].iToss-1]
-        }
-    }
 
 
     fun cancelPreviousToss() {
@@ -110,13 +98,37 @@ class Game (context: Context, val settings: Settings) {
         else {
             players[iPlayer].cancelToss(this, previousToss)
         }
+
         turns[iTurn].tosses[players[iPlayer].iToss] = null
+
     }
+
+
+
+    private fun getPreviousToss(): Toss? {
+        var turnIndex = iTurn
+        var playerIndex = iPlayer
+
+        /** Simulate the index logic */
+        if (players[playerIndex].iToss == 0){
+            turnIndex -= 1
+            if (playerIndex == 0) playerIndex = players.size-1
+            else playerIndex -= 1
+
+            return turns[turnIndex].tosses[2]
+        }
+        else {
+            return turns[iTurn].tosses[players[this.iPlayer].iToss-1]
+        }
+    }
+
 
 
     fun getCurrentPlayer(): Player {
         return players[iPlayer]
     }
+
+
 
     fun getPreviousPlayer(): Player {
         return if (iPlayer == 0) players[players.size-1]
@@ -124,14 +136,32 @@ class Game (context: Context, val settings: Settings) {
     }
 
 
+
     fun getCurrentTurn (): Turn {
         return turns[iTurn]
     }
 
 
+
     fun getPreviousTurn(): Turn {
         return if (iTurn != 0) turns[iTurn-1]
         else turns[iTurn]
+    }
+
+
+    fun updatePlayerHighlight() {
+        players.forEach {
+            it.isCurrentPlayer = false
+        }
+        if (previewState && iPlayer == 0) {
+            players[players.size - 1].isCurrentPlayer = true
+        }
+        else if (previewState) {
+            players[iPlayer - 1].isCurrentPlayer = true
+        }
+        else {
+            players[iPlayer].isCurrentPlayer = true
+        }
     }
 
 
