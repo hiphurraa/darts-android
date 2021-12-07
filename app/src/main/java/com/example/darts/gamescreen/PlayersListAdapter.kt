@@ -26,7 +26,27 @@ class PlayersListAdapter(private var players: List<Player>): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
-        viewHolder.tvIngamePlayerName.text = players[position].name
+        val player = players[position]
+        var latestScore = 0
+        var playerText = ""
+        if (player.latestTurn != null){
+            if (player.latestTurn!!.tosses[0] != null) {
+                latestScore += (player.latestTurn!!.tosses[0]!!.points * player.latestTurn!!.tosses[0]!!.factor)
+            }
+            if (player.latestTurn!!.tosses[1] != null) {
+                latestScore += (player.latestTurn!!.tosses[1]!!.points * player.latestTurn!!.tosses[1]!!.factor)
+            }
+            if (player.latestTurn!!.tosses[2] != null) {
+                latestScore += (player.latestTurn!!.tosses[2]!!.points * player.latestTurn!!.tosses[2]!!.factor)
+            }
+
+            playerText = player.name + " - " + player.pointsLeft + " (viimeisin: " + latestScore + ")"
+        }
+        else {
+            playerText = player.name + " - " + player.pointsLeft
+        }
+
+        viewHolder.tvIngamePlayerName.text = playerText
 
         if(players[position].isCurrentPlayer) {
             viewHolder.tvIngamePlayerName.setTextColor(Color.rgb(255, 255, 255))
