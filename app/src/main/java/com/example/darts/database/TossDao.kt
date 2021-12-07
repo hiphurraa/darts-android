@@ -16,4 +16,7 @@ interface TossDao {
 
     @Query("DELETE FROM darts_toss_table WHERE gameId = :gameId AND orderNumber = :orderNumber;")
     fun deleteToss(gameId: Long, orderNumber: Int)
+
+    @Query("SELECT points FROM darts_toss_table WHERE gameId = :gameId AND orderNumber = :orderNumber;")
+    fun getPoints(gameId: Long, orderNumber: Int): Int
 }

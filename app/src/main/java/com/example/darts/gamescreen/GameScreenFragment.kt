@@ -99,7 +99,7 @@ class GameScreenFragment: Fragment() {
 
     private fun undo() {
         if (game.orderNumber != 0) {
-            if (game.iToss == 0 && !game.previewState) {
+            if (game.getCurrentPlayer().iToss == 0 && !game.previewState) {
                 game.previewState = true
                 updateGameUI()
             } else {
@@ -117,20 +117,23 @@ class GameScreenFragment: Fragment() {
 
 
     private fun updateGameUI() {
-        /** Preview state UI logic */
         var currentTurn = game.getCurrentTurn()
-        var iToss = game.iToss
+        var iToss = game.getCurrentPlayer().iToss
+        var currentPlayer = game.getCurrentPlayer()
+
+        /** Preview state UI logic */
         if(game.previewState) {
             currentTurn = game.getPreviousTurn()
             iToss = -1
+            currentPlayer = game.getPreviousPlayer()
             binding.btnOk.setBackgroundColor(resources.getColor(R.color.main_blue))
         } else {
             binding.btnOk.setBackgroundColor(resources.getColor(R.color.light_gray))
         }
 
         /** Current player score and name */
-        binding.tvCurrentPlayerScore.text = game.getCurrentPlayer().pointsLeft.toString()
-        binding.tvCurrentPlayerName.text = game.getCurrentPlayer().name
+        binding.tvCurrentPlayerScore.text = currentPlayer.pointsLeft.toString()
+        binding.tvCurrentPlayerName.text = currentPlayer.name
 
         /** Score input values */
         val currentTosses = currentTurn.tosses
