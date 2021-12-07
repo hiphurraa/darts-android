@@ -51,6 +51,13 @@
     <string name="gs_lang">Kieli</string>
     <string name="gs_points_speed">Pisteiden pikavalinta</string>
     <string name="gs_points_speed_info">Jos päällä, pisteiden syöttöä ei tarvitse vahvistaa "OK"-näppäimellä</string>
+
+    <!-- Game history -->
+    <string name="date">Päivämäärä</string>
+    <string name="history_game_name_text">Nimi</string>
+    <string name="history_winner_text">Voittaja</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
