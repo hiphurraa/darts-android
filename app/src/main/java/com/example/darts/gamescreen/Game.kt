@@ -8,25 +8,29 @@ import kotlinx.coroutines.launch
 
 class Game (context: Context, val settings: Settings) {
 
-    private val players: MutableList<Player> = settings.players
-    private var gameId: Long = -1
+    private var gameId: Long = -1 // This games id in the database
 
+    private var iTurn = 0 // Index of which turn it is, turn has 3 tosses
+    var iToss: Int = 0 // Index of 0-2, represents which of the 3 tosses of turn it is right now
     private var iPlayer: Int = 0 // Index of which players turn it is
-    var iToss: Int = 0 // Represents which of the 3 tosses of turn is right now
-    var orderNumber: Int = 0 // Increases +1 on every toss
-    private var iTurn = 0
+    var orderNumber: Int = 0 // Increases +1 on every toss, needed for database
+
+    private val players: MutableList<Player> = settings.players
     private val turns: MutableList<Turn> = mutableListOf(Turn(players[iPlayer]))
-    var previewState = false
+
+    var previewState = false // When true, waits for ok button or undo from user
 
     private val database = DartsDatabase.getInstance(context)
     private val gameDao = database.gameDao()
     private val tossDao = database.tossDao()
 
 
+
+    /** Starts a new game and saves it to database */
     fun start(name: String) {
         val gameEntity = GameEntity(0, System.currentTimeMillis(), settings.startingPoints, name)
         players.forEach {
-            it.score = settings.startingPoints
+            it.pointsLeft = settings.startingPoints
             it.doubleRequired = settings.startsWithDouble
         }
 
@@ -37,6 +41,8 @@ class Game (context: Context, val settings: Settings) {
     }
 
 
+
+    /** Adds new toss to game instance and database and handles the game logic */
     fun newToss(points: Int, factor: Int) {
         if (iToss == 2) previewState = true
 
@@ -63,6 +69,9 @@ class Game (context: Context, val settings: Settings) {
         orderNumber += 1
     }
 
+
+
+    /** Deletes the previous toss from database and the game instance and handles the game logic */
     fun cancelPreviousToss() {
         orderNumber -= 1
 
@@ -86,13 +95,16 @@ class Game (context: Context, val settings: Settings) {
         turns[iTurn].tosses[iToss] = null
     }
 
+
     fun getCurrentPlayer(): Player {
         return players[iPlayer]
     }
 
+
     fun getCurrentTurn (): Turn {
         return turns[iTurn]
     }
+
 
     fun getPreviousTurn(): Turn {
         return if (iTurn != 0) turns[iTurn-1]

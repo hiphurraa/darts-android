@@ -21,6 +21,8 @@ class GameScreenFragment: Fragment() {
     private lateinit var game: Game
     private var factor: Int = 1
 
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentGameScreenBinding.inflate(inflater, container, false)
@@ -54,29 +56,35 @@ class GameScreenFragment: Fragment() {
         binding.btn25.setOnClickListener { scoreInput(25) }
         binding.btnMiss.setOnClickListener { scoreInput(0) }
         binding.btnUndo.setOnClickListener { undo() }
-        binding.btnFactor2.setOnClickListener { factorHandler(2) }
-        binding.btnFactor3.setOnClickListener { factorHandler(3) }
+        binding.btnFactor2.setOnClickListener { factorButtonsHandler(2) }
+        binding.btnFactor3.setOnClickListener { factorButtonsHandler(3) }
         binding.btnOk.setOnClickListener { okButtonHandler() }
 
         return binding.root
     }
 
-    fun okButtonHandler() {
+
+
+    private fun okButtonHandler() {
         if (game.previewState) {
             game.previewState = false
             updateGameUI()
         }
     }
 
-    fun factorHandler (clickedFactor: Int) {
+
+
+    private fun factorButtonsHandler (clickedFactor: Int) {
         if (!game.previewState) {
-            if (clickedFactor == factor) factor = 1
-            else factor = clickedFactor
+            factor = if (clickedFactor == factor) 1
+            else clickedFactor
             updateGameUI()
         }
     }
 
-    fun scoreInput(points: Int) {
+
+
+    private fun scoreInput(points: Int) {
         if (!game.previewState){
             when (points) {
                 0 -> game.newToss(0, 1)
@@ -87,7 +95,9 @@ class GameScreenFragment: Fragment() {
         }
     }
 
-    fun undo() {
+
+
+    private fun undo() {
         if (game.orderNumber != 0) {
             if (game.iToss == 0 && !game.previewState) {
                 game.previewState = true
@@ -104,7 +114,10 @@ class GameScreenFragment: Fragment() {
         }
     }
 
-    fun updateGameUI() {
+
+
+    private fun updateGameUI() {
+        /** Preview state UI logic */
         var currentTurn = game.getCurrentTurn()
         var iToss = game.iToss
         if(game.previewState) {
@@ -116,7 +129,7 @@ class GameScreenFragment: Fragment() {
         }
 
         /** Current player score and name */
-        binding.tvCurrentPlayerScore.text = game.getCurrentPlayer().score.toString()
+        binding.tvCurrentPlayerScore.text = game.getCurrentPlayer().pointsLeft.toString()
         binding.tvCurrentPlayerName.text = game.getCurrentPlayer().name
 
         /** Score input values */
@@ -152,7 +165,6 @@ class GameScreenFragment: Fragment() {
         if (currentTosses[2] == null) binding.tvFactorDartThree.text = ""
         else binding.tvFactorDartThree.text = currentTosses[2]!!.factor.toString()
 
-
         /** First factor ball */
         if (currentTurn.tosses[0] != null) {
             binding.tvFactorDartOne.text = currentTurn.tosses[0]!!.factor.toString() + "x"
@@ -180,7 +192,7 @@ class GameScreenFragment: Fragment() {
             }
         } else binding.flFactorDartThree.visibility = View.GONE
 
-        /** Current toss ball */
+        /** Current toss factor ball */
         when(iToss) {
             0 -> {
                 when(factor) {
@@ -213,17 +225,23 @@ class GameScreenFragment: Fragment() {
         }
     }
 
-    fun setupGameUI() {
+
+
+    private fun setupGameUI() {
         binding.tvCurrentPlayerScore.text = settings.startingPoints.toString()
         binding.flScoreDartOne.setBackgroundResource(R.drawable.round_gray_bg_focused)
         binding.tvCurrentPlayerName.text = game.getCurrentPlayer().name
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvPlayersList.adapter = PlayersListAdapter(settings.players)
         binding.rvPlayersList.layoutManager = LinearLayoutManager(activity)
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
