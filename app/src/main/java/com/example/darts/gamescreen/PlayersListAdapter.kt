@@ -27,32 +27,33 @@ class PlayersListAdapter(private var players: List<Player>): RecyclerView.Adapte
 
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
         val player = players[position]
-        var latestScore = 0
+        var latestScore = 0 // Total points from players previous turn
         var playerText = ""
-        if (player.latestTurn != null){
-            if (player.latestTurn!!.tosses[0] != null) {
-                latestScore += (player.latestTurn!!.tosses[0]!!.points * player.latestTurn!!.tosses[0]!!.factor)
-            }
-            if (player.latestTurn!!.tosses[1] != null) {
-                latestScore += (player.latestTurn!!.tosses[1]!!.points * player.latestTurn!!.tosses[1]!!.factor)
-            }
-            if (player.latestTurn!!.tosses[2] != null) {
-                latestScore += (player.latestTurn!!.tosses[2]!!.points * player.latestTurn!!.tosses[2]!!.factor)
-            }
 
+        if (player.latestTurn != null){
+            /** Add all tosses to score */
+            player.latestTurn!!.tosses.forEach {
+                if (it != null) {
+                    latestScore += it.points * it.factor
+                }
+            }
+            /** Show the latest score beside the player name */
             playerText = player.name + " - " + player.pointsLeft + " (viimeisin: " + latestScore + ")"
         }
         else {
+            /** Show only remaining point, as there's no latest score */
             playerText = player.name + " - " + player.pointsLeft
         }
 
         viewHolder.tvIngamePlayerName.text = playerText
 
+        /** Highlight the current player with blue background & white text */
         if(players[position].isCurrentPlayer) {
             viewHolder.tvIngamePlayerName.setTextColor(Color.rgb(255, 255, 255))
             viewHolder.tvIngamePlayerName.setBackgroundColor(Color.rgb(51, 116, 215))
         }
         else {
+            /** Default colors */
             viewHolder.tvIngamePlayerName.setTextColor(Color.rgb(0, 0, 0))
             viewHolder.tvIngamePlayerName.setBackgroundColor(Color.rgb(255, 255, 255))
         }
