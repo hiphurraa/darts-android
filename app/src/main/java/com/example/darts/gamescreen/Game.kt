@@ -23,7 +23,7 @@ class Game (context: Context, val settings: Settings) {
     private val gameDao = database.gameDao()
     val tossDao = database.tossDao()
 
-    var gameOver = false
+    var isGameOver = false
 
 
 
@@ -61,42 +61,15 @@ class Game (context: Context, val settings: Settings) {
         val tossOutCome = player.checkToss(newToss)
 
         when (tossOutCome) {
-            Player.WINNER -> {
-                player.toss(this, newToss)
-            }
-            Player.BUST -> {
-                /** Rest tosses are 0  */
-                while (player.iToss != 2){
-                    turn.tosses[player.iToss] = Toss(0, 0, false)
-                    player.toss(this, Toss(0, 0, false))
-
-                    orderNumber += 1
-                }
-                turn.tosses[player.iToss] = Toss(0, 0, false)
-                player.toss(this, Toss(0, 0, false))
-                orderNumber += 1
-
-                turn.bust = true
-                player.latestTurn = turn
-
-                /** Go to next turn */
-                turns.add(Turn())
-                iTurn += 1
-
-                /** Update the iPlayer index */
-                if (iPlayer < players.size-1) iPlayer += 1
-                else iPlayer = 0
-                players.forEach { it.isCurrentPlayer = false }
-                players[iPlayer].isCurrentPlayer = true
-
-                bust()
-            }
+            Player.WINNER -> gameOver(player, newToss)
+            Player.BUST -> bust(player, turn)
             else -> {
                 /** Normal toss */
-
                 turn.tosses[player.iToss] = newToss
                 player.toss(this, newToss)
+                orderNumber += 1
 
+                /** Change turn? */
                 if (player.iToss == 0) {
                     /** Before changing turn save the current turn as latest */
                     player.latestTurn = turn
@@ -108,24 +81,55 @@ class Game (context: Context, val settings: Settings) {
                     /** Update the iPlayer index */
                     if (iPlayer < players.size-1) iPlayer += 1
                     else iPlayer = 0
+
+                    /** Set current player */
+                    players.forEach { it.isCurrentPlayer = false }
+                    players[iPlayer].isCurrentPlayer = true
                 }
-
-                orderNumber += 1
-                players.forEach { it.isCurrentPlayer = false }
-                players[iPlayer].isCurrentPlayer = true
-
             }
         }
     }
 
 
-    private fun bust() {
+
+    private fun gameOver(player: Player, winningToss: Toss) {
+        player.toss(this, winningToss)
+        isGameOver = true
+    }
+
+
+
+    private fun bust(player: Player, turn: Turn) {
+
+        /** BUST, rest tosses are 0 points  */
+        while (player.iToss != 2){
+            turn.tosses[player.iToss] = Toss(0, 0, false)
+            player.toss(this, Toss(0, 0, false))
+            orderNumber += 1
+        }
+        turn.tosses[player.iToss] = Toss(0, 0, false)
+        player.toss(this, Toss(0, 0, false))
+        orderNumber += 1
+
+        /** Go to next turn */
+        turns.add(Turn())
+        iTurn += 1
+
+        /** Update the iPlayer index */
+        if (iPlayer < players.size-1) iPlayer += 1
+        else iPlayer = 0
+
+        /** Set current player */
+        players.forEach { it.isCurrentPlayer = false }
+        players[iPlayer].isCurrentPlayer = true
+
         repeat(3) {
             cancelPreviousToss()
         }
         repeat(3) {
             newToss(0, 1)
         }
+        getPreviousTurn().isBust = true
     }
 
 
@@ -137,6 +141,7 @@ class Game (context: Context, val settings: Settings) {
             /** Go to previous turn */
             turns.removeAt(iTurn)
             iTurn -= 1
+            turns[iTurn].isBust = false
 
             /** Update the iPlayer index */
             if (iPlayer == 0) iPlayer = players.size-1

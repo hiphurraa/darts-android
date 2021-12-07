@@ -232,7 +232,14 @@ class GameScreenFragment: Fragment() {
             }
         }
 
-        if (game.gameOver) {
+        if (currentTurn.isBust) {
+            binding.flBust.visibility = View.VISIBLE
+        }
+        else {
+            binding.flBust.visibility = View.GONE
+        }
+
+        if (game.isGameOver) {
             Toast.makeText(context, "Game over!", Toast.LENGTH_SHORT).show()
         }
     }

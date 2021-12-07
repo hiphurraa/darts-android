@@ -40,6 +40,7 @@
 
     <!-- Game screen -->
     <string name="gs_no_previous_turn">Ei aiempaa vuoroa!</string>
+    <string name="gs_bust">YLI MÄN ETTÄ PÄTKÄHTI</string>
 
     <!-- Game history -->
     <string name="gh_nav_title">Pelihistoria</string>
