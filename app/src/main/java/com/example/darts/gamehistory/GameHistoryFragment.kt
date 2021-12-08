@@ -40,16 +40,16 @@ class GameHistoryFragment: Fragment() {
         binding.setLifecycleOwner(this)
 
         val adapter = HistoryAdapter()
-        binding.gameHistoryRecyclerView.adapter = adapter
+        binding.gameHistoryList.adapter = adapter
 
-        gameHistoryViewModel.games.observe(viewLifecycleOwner, Observer {
+        gameHistoryViewModel.gamesList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
 
         val manager = LinearLayoutManager(activity)
-        binding.gameHistoryRecyclerView.layoutManager = manager
+        binding.gameHistoryList.layoutManager = manager
 
 
         // Setting the navigaton bar title
@@ -72,3 +72,4 @@ class GameHistoryFragment: Fragment() {
         _binding = null
     }
 }
+

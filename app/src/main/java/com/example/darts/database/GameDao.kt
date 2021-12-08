@@ -11,4 +11,10 @@ interface GameDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGame(game: Game): Long
+
+    @Query("DELETE FROM darts_games_table")
+    fun clear()
+
+    @Query("SELECT * FROM darts_games_table WHERE id = :gameId")
+    fun get(gameId: Long): Game
 }

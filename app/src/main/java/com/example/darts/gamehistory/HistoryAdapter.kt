@@ -1,14 +1,22 @@
 package com.example.darts.gamehistory
 
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.darts.database.DartsDatabase
 import com.example.darts.database.entities.Game
 import com.example.darts.databinding.HistoryGameItemBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.coroutineContext
 
 class HistoryAdapter : ListAdapter<Game, HistoryAdapter.ViewHolder>(GameDiffCallback()) {
+
+    lateinit var database: DartsDatabase
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -22,9 +30,30 @@ class HistoryAdapter : ListAdapter<Game, HistoryAdapter.ViewHolder>(GameDiffCall
     class ViewHolder private constructor(val binding: HistoryGameItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Game) {
+
+            val database = DartsDatabase.getInstance(binding.startingPointsText.context)
+            val playerDatabase = database.playerDao()
+            val tossDatabase = database.tossDao()
+            val gameDatabase = database.gameDao()
+
+            runBlocking {
+                GlobalScope.launch {
+                    var formatText: String = ""
+                    playerDatabase.getPlayersInGame(item.id).forEach {
+                        d("lauhyv", it)
+                        formatText += it + "\n"
+                    }
+
+                    binding.playersPointsText.text = formatText
+                }
+            }
+
             binding.game = item
+
             binding.executePendingBindings()
         }
+
+
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

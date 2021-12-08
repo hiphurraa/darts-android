@@ -13,11 +13,17 @@ import com.example.darts.database.entities.Game as GameEntity
 class GameHistoryViewModel(dataSource: GameDao, application: Application): ViewModel() {
     private val gameDatabase = dataSource
 
-    val games = gameDatabase.getAll()
+    val gamesList = gameDatabase.getAll()
 
     fun onInsert() {
         GlobalScope.launch {
             gameDatabase.insertGame(GameEntity(0, System.currentTimeMillis(), 501, "Torstai tikka"))
+        }
+    }
+
+    fun onClear() {
+        GlobalScope.launch {
+            gameDatabase.clear()
         }
     }
 }
