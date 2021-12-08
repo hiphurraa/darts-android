@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.darts.R
 import com.example.darts.database.DartsDatabase
 import com.example.darts.databinding.FragmentGameHistoryBinding
@@ -47,6 +49,9 @@ class GameHistoryFragment: Fragment() {
         })
 
         d("lauhyv", gameHistoryViewModel.games.value.toString())
+
+        val manager = LinearLayoutManager(activity)
+        binding.gameHistoryRecyclerView.layoutManager = manager
 
 
         // Setting the navigaton bar title
