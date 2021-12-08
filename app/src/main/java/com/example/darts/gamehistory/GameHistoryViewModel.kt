@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import com.example.darts.database.entities.Game as GameEntity
 
 class GameHistoryViewModel(dataSource: GameDao, application: Application): ViewModel() {
-    val gameDatabase = dataSource
+    private val gameDatabase = dataSource
 
     val games = gameDatabase.getAll()
 

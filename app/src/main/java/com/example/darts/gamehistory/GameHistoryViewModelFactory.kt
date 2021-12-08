@@ -20,18 +20,3 @@ class GameHistoryViewModelFactory(
         throw IllegalArgumentException("Unkown ViewModel class")
     }
 }
-
-
-/*
-
-class GameSettingsViewModelFactory(
-    private val dataSource: AppSettingsDao) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(GameSettingsViewModel::class.java)) {
-            return GameSettingsViewModel(dataSource) as T
-        }
-        throw  IllegalArgumentException("Unkown ViewModel class")
-    }
-}
-
- */

@@ -48,8 +48,6 @@ class GameHistoryFragment: Fragment() {
             }
         })
 
-        d("lauhyv", gameHistoryViewModel.games.value.toString())
-
         val manager = LinearLayoutManager(activity)
         binding.gameHistoryRecyclerView.layoutManager = manager
 
@@ -67,7 +65,6 @@ class GameHistoryFragment: Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_gameHistoryFragment_to_gameMenuFragment)
         }
 
-        //d("lauhyv", binding.gameHistoryViewModel?.getAllGames().toString())
     }
 
     override fun onDestroyView() {
@@ -75,33 +72,3 @@ class GameHistoryFragment: Fragment() {
         _binding = null
     }
 }
-
-/*
-
-val gameSettingsViewModel = ViewModelProvider(this, viewModelFactory).get(GameSettingsViewModel::class.java)
-
-        binding.gameSettingsViewModel = gameSettingsViewModel
-
-        binding.setLifecycleOwner(this)
-
-        val appSettingsObserver = Observer<AppSettings> { AppSettings ->
-            if(AppSettings.language == "FI") {
-                binding.btnGsLanguageEnglish.setBackgroundColor(getColor(context, R.color.dark_gray))
-                binding.btnGsLanguageFinnish.setBackgroundColor(getColor(context, R.color.main_blue))
-            } else {
-                binding.btnGsLanguageFinnish.setBackgroundColor(getColor(context, R.color.dark_gray))
-                binding.btnGsLanguageEnglish.setBackgroundColor(getColor(context, R.color.main_blue))
-            }
-
-            if(AppSettings.speedEntryEnabled!!) {
-                binding.btnGsPointsSpeedYes.setBackgroundColor(getColor(context, R.color.main_blue))
-                binding.btnGsPointsSpeedNo.setBackgroundColor(getColor(context, R.color.dark_gray))
-            } else {
-                binding.btnGsPointsSpeedYes.setBackgroundColor(getColor(context, R.color.dark_gray))
-                binding.btnGsPointsSpeedNo.setBackgroundColor(getColor(context, R.color.main_blue))
-
-            }
-        }
-
-        gameSettingsViewModel.getAppSettings().observe(viewLifecycleOwner, appSettingsObserver)
- */
