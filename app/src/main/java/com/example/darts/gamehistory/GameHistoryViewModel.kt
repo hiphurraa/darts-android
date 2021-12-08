@@ -1,63 +1,24 @@
 package com.example.darts.gamehistory
 
+import android.app.Application
+import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.darts.database.GameDao
+import kotlinx.coroutines.launch
 import com.example.darts.database.entities.Game as GameEntity
 
-class GameHistoryViewModel(dataSource: GameDao): ViewModel() {
+class GameHistoryViewModel(dataSource: GameDao, application: Application): ViewModel() {
     val gameDatabase = dataSource
 
-    private val allGames: LiveData<List<GameEntity>>
-    fun getAllGames() = allGames
+    val games = gameDatabase.getAll()
 
-    init {
-        allGames = gameDatabase.getAll()
+    fun onInsert() {
+        d("lauhyv", "this ran")
+        viewModelScope.launch {
+            gameDatabase.insertGame(GameEntity(0, System.currentTimeMillis(), 501, "Torstai tikka"))
+        }
+        d("lauhyv", "this ran2")
     }
-
-
 }
-
-/*
-
-
-class GameSettingsViewModel(
-    dataSource: AppSettingsDao) : ViewModel() {
-
-        val database = dataSource
-
-        private val appSettings: LiveData<AppSettings>
-        fun getAppSettings() = appSettings
-
-        init {
-            appSettings = database.getSettings()
-        }
-
-    fun onEnglish() {
-        GlobalScope.launch {
-            database.updateAppSettings(AppSettings(appSettings.value?.id!!, "ENG", appSettings.value?.speedEntryEnabled))
-        }
-    }
-
-    fun onFinnish() {
-        GlobalScope.launch {
-            database.updateAppSettings(AppSettings(appSettings.value?.id!!, "FI", appSettings.value?.speedEntryEnabled))
-        }
-    }
-
-    fun onSpeedEntryEnabled() {
-        GlobalScope.launch {
-            database.updateAppSettings(AppSettings(appSettings.value?.id!!, appSettings.value?.language, true))
-        }
-    }
-
-    fun onSpeedEntryDisabled() {
-        GlobalScope.launch {
-            database.updateAppSettings(AppSettings(appSettings.value?.id!!, appSettings.value?.language, false))
-        }
-    }
-
-
-}
-
- */

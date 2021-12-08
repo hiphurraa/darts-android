@@ -1,5 +1,6 @@
 package com.example.darts.gamehistory
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.darts.database.DartsDatabase
@@ -10,10 +11,11 @@ import javax.sql.CommonDataSource
 
 class GameHistoryViewModelFactory(
     private val dataSource: GameDao,
+    private val application: Application
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(GameHistoryViewModel::class.java)) {
-            return GameHistoryViewModel(dataSource) as T
+            return GameHistoryViewModel(dataSource, application) as T
         }
         throw IllegalArgumentException("Unkown ViewModel class")
     }

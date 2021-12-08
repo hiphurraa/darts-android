@@ -5,7 +5,9 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.darts.R
@@ -21,18 +23,30 @@ class GameHistoryFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        _binding = FragmentGameHistoryBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game_history, container, false)
 
+        val application = requireNotNull(this.activity).application
 
         val context = requireActivity().applicationContext
         database = DartsDatabase.getInstance(context)
 
-        val viewModelFactory = GameHistoryViewModelFactory(database.gameDao())
+        val viewModelFactory = GameHistoryViewModelFactory(database.gameDao(), application)
 
         val gameHistoryViewModel = ViewModelProvider(this, viewModelFactory).get(GameHistoryViewModel::class.java)
 
         binding.gameHistoryViewModel = gameHistoryViewModel
         binding.setLifecycleOwner(this)
+
+        val adapter = HistoryAdapter()
+        binding.gameHistoryRecyclerView.adapter = adapter
+
+        gameHistoryViewModel.games.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
+
+        d("lauhyv", gameHistoryViewModel.games.value.toString())
 
 
         // Setting the navigaton bar title
@@ -48,7 +62,7 @@ class GameHistoryFragment: Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_gameHistoryFragment_to_gameMenuFragment)
         }
 
-        d("lauhyv", binding.gameHistoryViewModel?.getAllGames().toString())
+        //d("lauhyv", binding.gameHistoryViewModel?.getAllGames().toString())
     }
 
     override fun onDestroyView() {
