@@ -44,5 +44,9 @@ class GameMenuFragment : Fragment() {
         binding.btnSettings.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_gameMenuFragment_to_gameSettingsFragment)
         }
+
+        binding.btnExit.setOnClickListener {
+            requireActivity().finishAffinity()
+        }
     }
 }

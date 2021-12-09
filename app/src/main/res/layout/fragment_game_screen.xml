@@ -726,8 +726,7 @@
             android:background="@color/light_gray"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"/>
+            android:padding="10dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTurnsList"

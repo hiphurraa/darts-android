@@ -292,8 +292,8 @@ class GameScreenFragment: Fragment() {
         turnsListAdapter = TurnsListAdapter(game.turns, requireContext())
         binding.rvTurnsList.adapter = turnsListAdapter
         val turnsLayoutManager = LinearLayoutManager(activity)
-        turnsLayoutManager.reverseLayout = true;
-        turnsLayoutManager.stackFromEnd = true;
+//        turnsLayoutManager.reverseLayout = true;
+//        turnsLayoutManager.stackFromEnd = true;
         binding.rvTurnsList.layoutManager = turnsLayoutManager
     }
 
