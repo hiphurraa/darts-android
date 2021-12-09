@@ -65,8 +65,14 @@ class GameScreenFragment: Fragment() {
         binding.btnMenu.setOnClickListener {
             turnsListAdapter.notifyDataSetChanged()
             when (binding.clGameMenu.visibility) {
-                View.GONE -> binding.clGameMenu.visibility = View.VISIBLE
-                View.VISIBLE -> binding.clGameMenu.visibility = View.GONE
+                View.GONE -> {
+                    binding.clGameMenu.visibility = View.VISIBLE
+                    binding.btnMenu.setImageResource(R.drawable.close_icon)
+                }
+                View.VISIBLE -> {
+                    binding.clGameMenu.visibility = View.GONE
+                    binding.btnMenu.setImageResource(R.drawable.menu_icon)
+                }
             }
         }
         binding.btnQuitGame.setOnClickListener {

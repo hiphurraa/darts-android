@@ -27,7 +27,8 @@ class TurnsListAdapter(private var turns: List<Turn>, private var context: Conte
 
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
         val turn = turns[position]
-        var tossesInfoText = turn.playerName
+        val turnNumber = position+1
+        var tossesInfoText = "Turn " + turnNumber + " - " + turn.playerName
 
         /** Add tosses points and factors to info text */
         turn.tosses.forEachIndexed { index, it ->
