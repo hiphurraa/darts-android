@@ -19,4 +19,7 @@ interface TossDao {
 
     @Query("SELECT points FROM darts_toss_table WHERE gameId = :gameId AND orderNumber = :orderNumber;")
     fun getPoints(gameId: Long, orderNumber: Int): Int
+
+    @Query("SELECT * FROM darts_toss_table WHERE gameId = :gameId AND playerId = :playerId")
+    fun getTossesFromPlayerInGame(playerId: Long, gameId: Long): List<Toss>
 }

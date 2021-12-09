@@ -18,7 +18,7 @@ interface PlayerDao {
     @Query("UPDATE darts_players_table SET defaultSelected = :defaultSelected WHERE id = :id")
     fun ChangeDefaultSelected(id: Long, defaultSelected: Boolean)
 
-    @Query("SELECT DISTINCT darts_players_table.name FROM darts_players_table INNER JOIN darts_toss_table ON darts_toss_table.playerId == darts_players_table.id WHERE darts_toss_table.gameId = :gameId ")
-    fun getPlayersInGame(gameId: Long): List<String>
+    @Query("SELECT DISTINCT darts_players_table.id FROM darts_players_table INNER JOIN darts_toss_table ON darts_toss_table.playerId == darts_players_table.id WHERE darts_toss_table.gameId = :gameId ")
+    fun getPlayersInGame(gameId: Long): List<Long>
 
 }
