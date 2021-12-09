@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.example.darts.R
 import com.example.darts.database.DartsDatabase
 import com.example.darts.database.PlayerDao
@@ -15,6 +16,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class PlayerCreationFragment: Fragment() {
+
+    val args : PlayerCreationFragmentArgs by navArgs()
 
     private var _binding: FragmentPlayerCreationBinding? = null
     private val binding get() = _binding!!
@@ -43,7 +46,9 @@ class PlayerCreationFragment: Fragment() {
 
         /** Back button */
         binding.navigationBar.btnBack.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_playerCreationFragment_to_gameCreationFragment)
+            args.settings.fromPlayerCreation = true
+            val action = PlayerCreationFragmentDirections.actionPlayerCreationFragmentToGameCreationFragment(args.settings)
+            Navigation.findNavController(view).navigate(action)
         }
 
         /** Create player button */
@@ -58,7 +63,9 @@ class PlayerCreationFragment: Fragment() {
                 GlobalScope.launch {
                     playerDao.insertPlayer(playerName, autoSelect)
                 }
-                Navigation.findNavController(view).navigate(R.id.action_playerCreationFragment_to_gameCreationFragment)
+                args.settings.fromPlayerCreation = true
+                val action = PlayerCreationFragmentDirections.actionPlayerCreationFragmentToGameCreationFragment(args.settings)
+                Navigation.findNavController(view).navigate(action)
 
             } else {
                 Toast.makeText(requireActivity().applicationContext, validationMsg, Toast.LENGTH_LONG).show()

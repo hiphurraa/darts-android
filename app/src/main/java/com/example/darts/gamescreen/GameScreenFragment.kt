@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -11,6 +13,10 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.darts.R
 import com.example.darts.databinding.FragmentGameScreenBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.concurrent.schedule
 
 class GameScreenFragment: Fragment() {
 
@@ -68,15 +74,20 @@ class GameScreenFragment: Fragment() {
                 View.GONE -> {
                     binding.clGameMenu.visibility = View.VISIBLE
                     binding.btnMenu.setImageResource(R.drawable.close_icon)
+                    val openAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.game_menu_open_animation)
+                    binding.clGameMenu.startAnimation(openAnimation)
                 }
                 View.VISIBLE -> {
-                    binding.clGameMenu.visibility = View.GONE
                     binding.btnMenu.setImageResource(R.drawable.menu_icon)
+                    val closeAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.game_menu_close_animation)
+                    binding.clGameMenu.startAnimation(closeAnimation)
+                    binding.clGameMenu.visibility = View.GONE
                 }
             }
-        }
-        binding.btnQuitGame.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_gameScreenFragment_to_gameMenuFragment)
+            binding.btnQuitGame.setOnClickListener {
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_gameScreenFragment_to_gameMenuFragment)
+            }
         }
 
         return binding.root

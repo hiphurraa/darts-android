@@ -11,6 +11,8 @@ import com.example.darts.R
 import com.example.darts.database.AppSettingsDao
 import com.example.darts.database.DartsDatabase
 import com.example.darts.databinding.FragmentGameMenuBinding
+import com.example.darts.gamescreen.Settings
+import com.example.darts.playercreation.PlayerCreationFragmentDirections
 import kotlinx.coroutines.runBlocking
 
 private var _binding: FragmentGameMenuBinding? = null
@@ -29,7 +31,10 @@ class GameMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNewGame.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_gameMenuFragment_to_gameCreationFragment)
+            val action = GameMenuFragmentDirections.actionGameMenuFragmentToGameCreationFragment(
+                Settings(501, true, mutableListOf(), false)
+            )
+            Navigation.findNavController(view).navigate(action)
         }
 
         binding.btnHistory.setOnClickListener {

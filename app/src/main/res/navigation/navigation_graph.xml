@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_gameCreationFragment_to_playerCreationFragment"
             app:destination="@id/playerCreationFragment" />
+        <argument
+            android:name="settings"
+            app:argType="com.example.darts.gamescreen.Settings" />
     </fragment>
     <fragment
         android:id="@+id/gameSettingsFragment"
@@ -70,6 +73,10 @@
         tools:layout="@layout/fragment_player_creation" >
         <action
             android:id="@+id/action_playerCreationFragment_to_gameCreationFragment"
-            app:destination="@id/gameCreationFragment" />
+            app:destination="@id/gameCreationFragment"
+            app:launchSingleTop="false" />
+        <argument
+            android:name="settings"
+            app:argType="com.example.darts.gamescreen.Settings" />
     </fragment>
 </navigation>

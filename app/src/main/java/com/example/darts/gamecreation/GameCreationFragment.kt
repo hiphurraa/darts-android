@@ -1,6 +1,7 @@
 package com.example.darts.gamecreation
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.darts.gamescreen.Settings
 import com.example.darts.MainActivity
@@ -17,10 +19,15 @@ import com.example.darts.database.PlayerDao
 import com.example.darts.database.entities.Player as PlayerEntity
 import com.example.darts.databinding.FragmentGameCreationBinding
 import com.example.darts.gamescreen.Player
+import com.example.darts.playercreation.PlayerCreationFragmentDirections
+
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class GameCreationFragment: Fragment() {
+
+    val args : GameCreationFragmentArgs by navArgs()
+
 
     private var _binding: FragmentGameCreationBinding? = null
     private val binding get() = _binding!!
@@ -41,6 +48,21 @@ class GameCreationFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentGameCreationBinding.inflate(inflater, container, false)
+
+        /** If returning from player creation resume the settings */
+        if (args.settings.fromPlayerCreation) {
+            binding.gameCreationFirstView.root.visibility = View.INVISIBLE
+            binding.gameCreationSecondView.root.visibility = View.VISIBLE
+            currentView = SECOND_VIEW
+            when (args.settings.startingPoints) {
+                501 -> binding.gameCreationFirstView.rgStartingPoints.check(R.id.rbStartingPoints501)
+                301 -> binding.gameCreationFirstView.rgStartingPoints.check(R.id.rbStartingPoints301)
+            }
+            when (args.settings.startsWithDouble) {
+                true ->  binding.gameCreationFirstView.rgStartWithDouble.check(R.id.rbStartWithDoubleYes)
+                false ->  binding.gameCreationFirstView.rgStartWithDouble.check(R.id.rbStartWithDoubleNo)
+            }
+        }
 
         val context = requireActivity().applicationContext
         database = DartsDatabase.getInstance(context)
@@ -143,7 +165,19 @@ class GameCreationFragment: Fragment() {
 
         /** 'Create new player' button */
         binding.gameCreationSecondView.btnCreateNewPlayer.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_gameCreationFragment_to_playerCreationFragment)
+            /** Get starting points from radio group */
+            val startingPointsId = binding.gameCreationFirstView.rgStartingPoints.checkedRadioButtonId
+            val startingPoints: Int = requireView().findViewById<RadioButton>(startingPointsId).text.toString().toInt()
+
+            /** Get starts with double from radio group */
+            val startsWithDoubleId = binding.gameCreationFirstView.rgStartWithDouble.checkedRadioButtonId
+            val startsWithDouble: Boolean = requireView().findViewById<RadioButton>(startsWithDoubleId).text.toString()
+                .equals(resources.getString(R.string.gc_yes))
+
+            /** Create in-game settings object */
+            val inGameSettings = Settings(startingPoints, startsWithDouble, selectedPlayers, false)
+            val action = GameCreationFragmentDirections.actionGameCreationFragmentToPlayerCreationFragment(inGameSettings)
+            Navigation.findNavController(view).navigate(action)
         }
     }
 
@@ -162,7 +196,7 @@ class GameCreationFragment: Fragment() {
             .equals(resources.getString(R.string.gc_yes))
 
         /** Create in-game settings object */
-        val inGameSettings = Settings(startingPoints, startsWithDouble, selectedPlayers)
+        val inGameSettings = Settings(startingPoints, startsWithDouble, selectedPlayers, false)
         val action = GameCreationFragmentDirections.actionGameCreationFragmentToGameScreenFragment(inGameSettings)
         Navigation.findNavController(view).navigate(action)
         MainActivity.isInGame = true
