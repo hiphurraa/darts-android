@@ -32,7 +32,7 @@ class GameHistoryFragment: Fragment() {
         val context = requireActivity().applicationContext
         database = DartsDatabase.getInstance(context)
 
-        val viewModelFactory = GameHistoryViewModelFactory(database.gameDao(), application)
+        val viewModelFactory = GameHistoryViewModelFactory(database, application)
 
         val gameHistoryViewModel = ViewModelProvider(this, viewModelFactory).get(GameHistoryViewModel::class.java)
 

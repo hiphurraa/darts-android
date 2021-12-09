@@ -10,7 +10,7 @@ import java.lang.IllegalArgumentException
 import javax.sql.CommonDataSource
 
 class GameHistoryViewModelFactory(
-    private val dataSource: GameDao,
+    private val dataSource: DartsDatabase,
     private val application: Application
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

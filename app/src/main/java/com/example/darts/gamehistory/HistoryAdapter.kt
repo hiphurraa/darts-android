@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 
-class HistoryAdapter : ListAdapter<Game, HistoryAdapter.ViewHolder>(GameDiffCallback()) {
+class HistoryAdapter : ListAdapter<GameInfo, HistoryAdapter.ViewHolder>(GameInfoDiffCallback()) {
 
     lateinit var database: DartsDatabase
 
@@ -35,21 +35,14 @@ class HistoryAdapter : ListAdapter<Game, HistoryAdapter.ViewHolder>(GameDiffCall
 
     class ViewHolder private constructor(val binding: HistoryGameItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Game) {
-
-            val database = DartsDatabase.getInstance(binding.startingPointsText.context)
-            val playerDatabase = database.playerDao()
-            val tossDatabase = database.tossDao()
-            val gameDatabase = database.gameDao()
+        fun bind(item: GameInfo) {
 
 
 
-            binding.game = item
-            binding.playersPointsText.text = getFormattedPlayerString(item, playerDatabase, gameDatabase, tossDatabase)
-            binding.historyItemDetailDateText.text = getFormattedDate(item)
-            binding.startingPointsText.text = "(${item.startingPoints})"
-
-            printDb(database)
+            binding.gameInfo = item
+            binding.startingPointsText.text = item.startingPoints
+            binding.playersPointsText.text = item.playerString
+            binding.historyItemDetailDateText.text = item.dateString
 
             binding.executePendingBindings()
         }
@@ -111,12 +104,12 @@ class HistoryAdapter : ListAdapter<Game, HistoryAdapter.ViewHolder>(GameDiffCall
 
 }
 
-class GameDiffCallback : DiffUtil.ItemCallback<Game>() {
-    override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
-        return oldItem.id == newItem.id
+class GameInfoDiffCallback : DiffUtil.ItemCallback<GameInfo>() {
+    override fun areItemsTheSame(oldItem: GameInfo, newItem: GameInfo): Boolean {
+        return oldItem.gameId == newItem.gameId
     }
 
-    override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {
-        return oldItem == newItem
+    override fun areContentsTheSame(oldItem: GameInfo, newItem: GameInfo): Boolean {
+        return oldItem.equals(newItem)
     }
 }
