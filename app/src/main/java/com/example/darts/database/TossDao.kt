@@ -11,6 +11,9 @@ interface TossDao {
     @Query("SELECT * FROM darts_toss_table")
     fun getAll(): LiveData<List<Toss>>
 
+    @Query("SELECT * FROM darts_toss_table")
+    fun getAllSync(): List<Toss>
+
     @Insert
     fun insertToss(toss: Toss): Long
 

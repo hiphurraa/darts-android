@@ -9,6 +9,9 @@ interface GameDao {
     @Query("SELECT * FROM darts_games_table")
     fun getAll(): LiveData<List<Game>>
 
+    @Query("SELECT * FROM darts_games_table")
+    fun getAllSync(): List<Game>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGame(game: Game): Long
 
