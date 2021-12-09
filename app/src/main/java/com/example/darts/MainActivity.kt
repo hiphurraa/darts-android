@@ -1,5 +1,8 @@
 package com.example.darts
 
+import android.app.Activity
+import android.content.res.Configuration
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,12 +38,13 @@ class MainActivity : AppCompatActivity() {
         playerDao = database.playerDao()
         appSettingsDao = database.appSettingsDao()
         createDefaultSettingsIfNotExist()
+
     }
 
     fun createDefaultSettingsIfNotExist() {
-        GlobalScope.launch(context = Dispatchers.Default) {
+        GlobalScope.launch {
             val settings = appSettingsDao.getSettingsSync()
-            if(settings == null) {
+            if (settings == null) {
                 val defaultSettings = AppSettings(1L, "FI", false)
                 appSettingsDao.insertSettings(defaultSettings)
             }

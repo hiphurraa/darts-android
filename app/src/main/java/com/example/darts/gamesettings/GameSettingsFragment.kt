@@ -19,6 +19,12 @@ import com.example.darts.database.entities.AppSettings
 import com.example.darts.databinding.FragmentGameCreationBinding
 import com.example.darts.databinding.FragmentGameSettingsBinding
 import kotlinx.coroutines.*
+import android.app.Activity
+import android.content.res.Configuration
+import android.content.res.Resources
+import androidx.lifecycle.Observer
+import java.util.*
+
 
 class GameSettingsFragment: Fragment() {
 
@@ -51,9 +57,11 @@ class GameSettingsFragment: Fragment() {
             if(AppSettings.language == "FI") {
                 binding.btnGsLanguageEnglish.setBackgroundColor(getColor(context, R.color.dark_gray))
                 binding.btnGsLanguageFinnish.setBackgroundColor(getColor(context, R.color.main_blue))
+                setLocale(requireActivity(), "fi")
             } else {
                 binding.btnGsLanguageFinnish.setBackgroundColor(getColor(context, R.color.dark_gray))
                 binding.btnGsLanguageEnglish.setBackgroundColor(getColor(context, R.color.main_blue))
+                setLocale(requireActivity(), "en")
             }
 
             if(AppSettings.speedEntryEnabled!!) {
@@ -79,5 +87,14 @@ class GameSettingsFragment: Fragment() {
             //d("layhyv", appSettings.value?.language.toString())
             Navigation.findNavController(view).navigate(R.id.action_gameSettingsFragment_to_gameMenuFragment)
         }
+    }
+
+    fun setLocale(activity: Activity, languageCode: String?) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val resources: Resources = activity.resources
+        val config: Configuration = resources.getConfiguration()
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.getDisplayMetrics())
     }
 }
