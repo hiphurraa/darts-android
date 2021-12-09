@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp">
 
     <!-- Top half, scores -->
@@ -34,17 +37,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <ImageButton
-                android:id="@+id/btnMenu"
-                android:src="@drawable/menu_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:scaleType="fitCenter"
-                android:background="@drawable/round_gray_bg"
-                android:padding="5dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,165 +94,200 @@
                 app:layout_constraintStart_toEndOf="@+id/flCurrentPlayerScore"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <FrameLayout
-                    android:id="@+id/flScoreDartOne"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clScoreDartOne"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/round_gray_bg"
-                    app:layout_constraintDimensionRatio="H,1:1"
+                    android:layout_height="match_parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/flScoreDartTwo"
-                    android:layout_marginHorizontal="5dp"
-                    android:maxHeight="80dp">
+                    app:layout_constraintEnd_toStartOf="@+id/clScoreDartTwo">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                    <FrameLayout
+                        android:id="@+id/flScoreDartOne"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@drawable/round_gray_bg"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="5dp"
+                        android:maxHeight="80dp">
 
-                        <TextView
-                            android:id="@+id/tvScoreDartOne"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:textSize="30sp"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center_horizontal" />
-                    </LinearLayout>
-                </FrameLayout>
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/flFactorDartOne"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    app:layout_constraintTop_toBottomOf="@+id/flScoreDartOne"
-                    app:layout_constraintStart_toStartOf="@+id/flScoreDartOne"
-                    app:layout_constraintEnd_toEndOf="@+id/flScoreDartOne"
-                    app:layout_constraintDimensionRatio="H,1:1"
-                    android:background="@drawable/round_red_bg"
-                    android:padding="7dp"
-                    android:layout_marginTop="-10dp"
-                    android:visibility="gone">
+                            <TextView
+                                android:id="@+id/tvScoreDartOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="30sp"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center_horizontal" />
+                        </LinearLayout>
+                    </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/tvFactorDartOne"
-                        android:layout_width="wrap_content"
+                    <FrameLayout
+                        android:id="@+id/flFactorDartOne"
                         android:layout_height="wrap_content"
-                        android:text="3x"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:textAlignment="center"
-                        android:textSize="17sp" />
-                </FrameLayout>
+                        android:layout_width="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/flScoreDartOne"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        android:background="@drawable/round_red_bg"
+                        android:padding="7dp"
+                        android:layout_marginBottom="-7dp"
+                        android:visibility="gone">
 
-                <FrameLayout
-                    android:id="@+id/flScoreDartTwo"
+                        <TextView
+                            android:id="@+id/tvFactorDartOne"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3x"
+                            android:textColor="@color/black"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textSize="17sp" />
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clScoreDartTwo"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/round_gray_bg"
-                    app:layout_constraintDimensionRatio="H,1:1"
+                    android:layout_height="match_parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/flScoreDartOne"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/flScoreDartThree"
-                    android:layout_marginHorizontal="5dp">
+                    app:layout_constraintStart_toEndOf="@+id/clScoreDartOne"
+                    app:layout_constraintEnd_toStartOf="@+id/clScoreDartThree">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                    <FrameLayout
+                        android:id="@+id/flScoreDartTwo"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/round_gray_bg"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="5dp">
 
-                        <TextView
-                            android:id="@+id/tvScoreDartTwo"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:textSize="30sp"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center_horizontal" />
-                    </LinearLayout>
-                </FrameLayout>
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/flFactorDartTwo"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    app:layout_constraintTop_toBottomOf="@+id/flScoreDartTwo"
-                    app:layout_constraintStart_toStartOf="@+id/flScoreDartTwo"
-                    app:layout_constraintEnd_toEndOf="@+id/flScoreDartTwo"
-                    app:layout_constraintDimensionRatio="H,1:1"
-                    android:background="@drawable/round_red_bg"
-                    android:padding="7dp"
-                    android:layout_marginTop="-10dp"
-                    android:visibility="gone">
+                            <TextView
+                                android:id="@+id/tvScoreDartTwo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="30sp"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center_horizontal" />
+                        </LinearLayout>
+                    </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/tvFactorDartTwo"
-                        android:layout_width="wrap_content"
+                    <FrameLayout
+                        android:id="@+id/flFactorDartTwo"
                         android:layout_height="wrap_content"
-                        android:text="3x"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:textAlignment="center"
-                        android:textSize="17sp" />
-                </FrameLayout>
+                        android:layout_width="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/flScoreDartTwo"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        android:background="@drawable/round_red_bg"
+                        android:padding="7dp"
+                        android:layout_marginBottom="-7dp"
+                        android:visibility="gone">
 
-                <FrameLayout
-                    android:id="@+id/flScoreDartThree"
+                        <TextView
+                            android:id="@+id/tvFactorDartTwo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3x"
+                            android:textColor="@color/black"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textSize="17sp" />
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clScoreDartThree"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/round_gray_bg"
-                    app:layout_constraintDimensionRatio="H,1:1"
+                    android:layout_height="match_parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/flScoreDartTwo"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginHorizontal="5dp">
+                    app:layout_constraintStart_toEndOf="@+id/clScoreDartTwo"
+                    app:layout_constraintEnd_toEndOf="parent">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                    <FrameLayout
+                        android:id="@+id/flScoreDartThree"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/round_gray_bg"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="5dp">
 
-                        <TextView
-                            android:id="@+id/tvScoreDartThree"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:textSize="30sp"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center_horizontal" />
-                    </LinearLayout>
-                </FrameLayout>
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/flFactorDartThree"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    app:layout_constraintTop_toBottomOf="@+id/flScoreDartThree"
-                    app:layout_constraintStart_toStartOf="@+id/flScoreDartThree"
-                    app:layout_constraintEnd_toEndOf="@+id/flScoreDartThree"
-                    app:layout_constraintDimensionRatio="H,1:1"
-                    android:background="@drawable/round_red_bg"
-                    android:padding="7dp"
-                    android:layout_marginTop="-10dp"
-                    android:visibility="gone">
+                            <TextView
+                                android:id="@+id/tvScoreDartThree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="30sp"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center_horizontal" />
+                        </LinearLayout>
+                    </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/tvFactorDartThree"
-                        android:layout_width="wrap_content"
+                    <FrameLayout
+                        android:id="@+id/flFactorDartThree"
                         android:layout_height="wrap_content"
-                        android:text="3x"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:textAlignment="center"
-                        android:textSize="17sp" />
-                </FrameLayout>
+                        android:layout_width="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/flScoreDartThree"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        android:background="@drawable/round_red_bg"
+                        android:padding="7dp"
+                        android:layout_marginBottom="-7dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tvFactorDartThree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3x"
+                            android:textColor="@color/black"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textSize="17sp" />
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
                 <FrameLayout
                     android:id="@+id/flBust"
@@ -320,7 +347,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_marginRight="5dp"
-                android:text="peru"
+                android:text="@string/gs_undo"
                 android:backgroundTint="@color/xx_dark_gray"
                 android:textColor="#E1E1E1"
                 android:textSize="20sp"
@@ -484,13 +511,13 @@
         </LinearLayout>
 
         <LinearLayout
-        android:id="@+id/llScoreButtonsElevenToFifteen"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/llScoreButtonsSixToTen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/llScoreButtonsSixteenToTwenty">
+            android:id="@+id/llScoreButtonsElevenToFifteen"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/llScoreButtonsSixToTen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/llScoreButtonsSixteenToTwenty">
 
             <Button
                 android:id="@+id/btn11"
@@ -630,7 +657,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_marginRight="5dp"
-                android:text="ohi"
+                android:text="@string/gs_miss"
                 android:backgroundTint="@color/x_dark_gray"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -664,5 +691,65 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clGameMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnQuitGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gs_quit_game"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tvTurnsListHeader"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/tvTurnsListHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/btnQuitGame"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/rvTurnsList"
+            android:text="@string/gs_previous_turns"
+            android:textColor="@color/main_blue"
+            android:background="@color/light_gray"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTurnsList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTurnsListHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp"
+            android:background="@color/light_gray" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/btnMenu"
+        android:src="@drawable/menu_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitCenter"
+        android:background="@drawable/round_gray_bg"
+        android:padding="5dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

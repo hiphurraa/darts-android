@@ -39,8 +39,13 @@
     <string name="gs_lang">Kieli</string>
     <string name="gs_points_speed">Pisteiden pikavalinta</string>
     <string name="gs_points_speed_info">Jos päällä, pisteiden syöttöä ei tarvitse vahvistaa OK-näppäimellä</string>
+    <string name="gs_quit_game">Lopeta peli</string>
+    <string name="gs_undo">peru</string>
+    <string name="gs_miss">ohi</string>
+    <string name="gs_no_previous_turns">Ei aiempia vuoroja</string>
     <string name="date">Päivämäärä</string>
     <string name="history_game_name_text">Nimi</string>
     <string name="history_winner_text">Voittaja</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gs_previous_turns">Aiemmat vuorot</string>
 </resources>

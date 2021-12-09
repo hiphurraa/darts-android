@@ -15,7 +15,7 @@ class Game (context: Context, private val settings: Settings) {
     var orderNumber: Int = 0 // Increases +1 on every toss, needed for database
 
     private val players: MutableList<Player> = settings.players
-    private val turns: MutableList<Turn> = mutableListOf(Turn())
+    val turns: MutableList<Turn> = mutableListOf(Turn())
 
     var previewState = false // When true, waits for ok button or undo from user
 
@@ -35,6 +35,7 @@ class Game (context: Context, private val settings: Settings) {
             it.doubleRequired = settings.startsWithDouble
         }
         players[iPlayer].isCurrentPlayer = true
+        turns[iTurn].playerName = players[iPlayer].name
 
         GlobalScope.launch {
             gameId = gameDao.insertGame(gameEntity)
@@ -62,7 +63,7 @@ class Game (context: Context, private val settings: Settings) {
         }
         /** Player still need the double, set points to 0 */
         else if (player.doubleRequired) {
-            newToss = Toss(0, factor, false)
+            newToss = Toss(0, 1, false)
         }
 
         val tossOutCome = player.checkToss(newToss)
@@ -92,6 +93,7 @@ class Game (context: Context, private val settings: Settings) {
                     /** Set current player */
                     players.forEach { it.isCurrentPlayer = false }
                     players[iPlayer].isCurrentPlayer = true
+                    turns[iTurn].playerName = players[iPlayer].name
                 }
             }
         }

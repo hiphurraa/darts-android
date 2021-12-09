@@ -59,6 +59,9 @@
         <argument
             android:name="settings"
             app:argType="com.example.darts.gamescreen.Settings" />
+        <action
+            android:id="@+id/action_gameScreenFragment_to_gameMenuFragment"
+            app:destination="@id/gameMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/playerCreationFragment"

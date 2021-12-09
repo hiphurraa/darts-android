@@ -27,7 +27,7 @@
     <string name="gc_create_new_player">+ Create new player</string>
     <string name="gc_pick_players">Choose players</string>
     <string name="gc_no_players_yet">No created players</string>
-    <string name="gc_no_players_selected">Choose atl east 1 player!</string>
+    <string name="gc_no_players_selected">Choose at least 1 player!</string>
     <string name="gc_too_many_players_selected">Choose at most 10 players!</string>
 
     <!-- Player creation -->
@@ -41,6 +41,11 @@
     <!-- Game screen -->
     <string name="gs_no_previous_turn">No earlier turn</string>
     <string name="gs_bust">WOOPS! OVER</string>
+    <string name="gs_quit_game">Quit game</string>
+    <string name="gs_undo">undo</string>
+    <string name="gs_miss">miss</string>
+    <string name="gs_previous_turns">Previous turns</string>
+    <string name="gs_no_previous_turns">No previous turns</string>
 
     <!-- Game history -->
     <string name="gh_nav_title">Game history</string>

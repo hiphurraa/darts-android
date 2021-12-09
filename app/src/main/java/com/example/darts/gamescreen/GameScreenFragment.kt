@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.darts.R
@@ -20,7 +21,8 @@ class GameScreenFragment: Fragment() {
     private lateinit var settings: Settings
     private lateinit var game: Game
     private var factor: Int = 1
-    private lateinit var adapter: PlayersListAdapter
+    private lateinit var playersListAdapter: PlayersListAdapter
+    private lateinit var turnsListAdapter: TurnsListAdapter
 
 
 
@@ -60,6 +62,16 @@ class GameScreenFragment: Fragment() {
         binding.btnFactor2.setOnClickListener { factorButtonsHandler(2) }
         binding.btnFactor3.setOnClickListener { factorButtonsHandler(3) }
         binding.btnOk.setOnClickListener { okButtonHandler() }
+        binding.btnMenu.setOnClickListener {
+            turnsListAdapter.notifyDataSetChanged()
+            when (binding.clGameMenu.visibility) {
+                View.GONE -> binding.clGameMenu.visibility = View.VISIBLE
+                View.VISIBLE -> binding.clGameMenu.visibility = View.GONE
+            }
+        }
+        binding.btnQuitGame.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_gameScreenFragment_to_gameMenuFragment)
+        }
 
         return binding.root
     }
@@ -133,8 +145,9 @@ class GameScreenFragment: Fragment() {
             binding.btnOk.setBackgroundColor(resources.getColor(R.color.light_gray))
         }
 
+        /** Update the players list */
         game.updatePlayerHighlight()
-        adapter.notifyDataSetChanged()
+        playersListAdapter.notifyDataSetChanged()
 
         /** Current player score and name */
         binding.tvCurrentPlayerScore.text = currentPlayer.pointsLeft.toString()
@@ -256,9 +269,15 @@ class GameScreenFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = PlayersListAdapter(settings.players)
-        binding.rvPlayersList.adapter = adapter
+        playersListAdapter = PlayersListAdapter(settings.players)
+        binding.rvPlayersList.adapter = playersListAdapter
         binding.rvPlayersList.layoutManager = LinearLayoutManager(activity)
+        turnsListAdapter = TurnsListAdapter(game.turns, requireContext())
+        binding.rvTurnsList.adapter = turnsListAdapter
+        val turnsLayoutManager = LinearLayoutManager(activity)
+        turnsLayoutManager.reverseLayout = true;
+        turnsLayoutManager.stackFromEnd = true;
+        binding.rvTurnsList.layoutManager = turnsLayoutManager
     }
 
 
