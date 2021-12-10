@@ -14,7 +14,7 @@ class Game (context: Context, private val settings: Settings) {
     private var iPlayer: Int = 0 // Index of which players turn it is
     var orderNumber: Int = 0 // Increases +1 on every toss, needed for database
 
-    private val players: MutableList<Player> = settings.players
+    val players: MutableList<Player> = settings.players
     val turns: MutableList<Turn> = mutableListOf(Turn())
 
     var previewState = false // When true, waits for ok button or undo from user

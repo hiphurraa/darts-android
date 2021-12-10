@@ -46,6 +46,7 @@
     <string name="gs_miss">miss</string>
     <string name="gs_previous_turns">Previous turns</string>
     <string name="gs_no_previous_turns">No previous turns</string>
+    <string name="gs_is_winner">is winner!</string>
 
     <!-- Game history -->
     <string name="gh_nav_title">Game history</string>

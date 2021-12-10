@@ -68,26 +68,35 @@ class GameScreenFragment: Fragment() {
         binding.btnFactor2.setOnClickListener { factorButtonsHandler(2) }
         binding.btnFactor3.setOnClickListener { factorButtonsHandler(3) }
         binding.btnOk.setOnClickListener { okButtonHandler() }
+        binding.btnGameOverOk.setOnClickListener {
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_gameScreenFragment_to_gameMenuFragment)
+        }
         binding.btnMenu.setOnClickListener {
-            turnsListAdapter.notifyDataSetChanged()
-            when (binding.clGameMenu.visibility) {
-                View.GONE -> {
-                    binding.clGameMenu.visibility = View.VISIBLE
-                    binding.btnMenu.setImageResource(R.drawable.close_icon)
-                    val openAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.game_menu_open_animation)
-                    binding.clGameMenu.startAnimation(openAnimation)
+            if (!game.isGameOver) {
+                turnsListAdapter.notifyDataSetChanged()
+                when (binding.clGameMenu.visibility) {
+                    View.GONE -> {
+                        binding.clGameMenu.visibility = View.VISIBLE
+                        binding.btnMenu.setImageResource(R.drawable.close_icon)
+                        val openAnimation: Animation =
+                            AnimationUtils.loadAnimation(context, R.anim.game_menu_open_animation)
+                        binding.clGameMenu.startAnimation(openAnimation)
+                    }
+                    View.VISIBLE -> {
+                        binding.btnMenu.setImageResource(R.drawable.menu_icon)
+                        val closeAnimation: Animation =
+                            AnimationUtils.loadAnimation(context, R.anim.game_menu_close_animation)
+                        binding.clGameMenu.startAnimation(closeAnimation)
+                        binding.clGameMenu.visibility = View.GONE
+                    }
                 }
-                View.VISIBLE -> {
-                    binding.btnMenu.setImageResource(R.drawable.menu_icon)
-                    val closeAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.game_menu_close_animation)
-                    binding.clGameMenu.startAnimation(closeAnimation)
-                    binding.clGameMenu.visibility = View.GONE
-                }
+
             }
-            binding.btnQuitGame.setOnClickListener {
-                Navigation.findNavController(binding.root)
-                    .navigate(R.id.action_gameScreenFragment_to_gameMenuFragment)
-            }
+        }
+        binding.btnQuitGame.setOnClickListener {
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_gameScreenFragment_to_gameMenuFragment)
         }
 
         return binding.root
@@ -96,51 +105,59 @@ class GameScreenFragment: Fragment() {
 
 
     private fun okButtonHandler() {
-        if (game.previewState) {
-            game.previewState = false
-            updateGameUI()
+        if (!game.isGameOver) {
+            if (game.previewState) {
+                game.previewState = false
+                updateGameUI()
+            }
         }
     }
 
 
 
     private fun factorButtonsHandler (clickedFactor: Int) {
-        if (!game.previewState) {
-            factor = if (clickedFactor == factor) 1
-            else clickedFactor
-            updateGameUI()
+        if (!game.isGameOver) {
+            if (!game.previewState) {
+                factor = if (clickedFactor == factor) 1
+                else clickedFactor
+                updateGameUI()
+            }
         }
     }
 
 
 
     private fun scoreInput(points: Int) {
-        if (!game.previewState){
-            when (points) {
-                0 -> game.newToss(0, 1)
-                else -> game.newToss(points, factor)
+        if (!game.isGameOver) {
+            if (!game.previewState) {
+                when (points) {
+                    0 -> game.newToss(0, 1)
+                    else -> game.newToss(points, factor)
+                }
+                factor = 1
+                updateGameUI()
             }
-            factor = 1
-            updateGameUI()
         }
     }
 
 
 
     private fun undo() {
-        if (game.orderNumber != 0) {
-            if (game.getCurrentPlayer().iToss == 0 && !game.previewState) {
-                game.previewState = true
-                updateGameUI()
-            } else {
-                game.previewState = false
-                game.cancelPreviousToss()
-                factor = 1
-                updateGameUI()
+        if (!game.isGameOver){
+            if (game.orderNumber != 0) {
+                if (game.getCurrentPlayer().iToss == 0 && !game.previewState) {
+                    game.previewState = true
+                    updateGameUI()
+                } else {
+                    game.previewState = false
+                    game.cancelPreviousToss()
+                    factor = 1
+                    updateGameUI()
+                }
             }
-        }
-        else {
-            Toast.makeText(context, resources.getString(R.string.gs_no_previous_turn), Toast.LENGTH_SHORT).show()
+            else {
+                Toast.makeText(context, resources.getString(R.string.gs_no_previous_turn), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -270,7 +287,13 @@ class GameScreenFragment: Fragment() {
         }
 
         if (game.isGameOver) {
-            Toast.makeText(context, "Game over!", Toast.LENGTH_SHORT).show()
+            var winner = ""
+            game.players.forEach {
+                if (it.pointsLeft == 0) winner = it.name
+            }
+            binding.tvWinnerInfo.text = winner + " " + resources.getString(R.string.gs_is_winner);
+            binding.clWinnerInfo.visibility = View.VISIBLE
+            binding.flBust.visibility = View.GONE
         }
     }
 
