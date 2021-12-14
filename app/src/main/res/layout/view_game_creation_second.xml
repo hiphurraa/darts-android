@@ -54,7 +54,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnContinue"
         android:layout_marginHorizontal="35dp"
         android:text="@string/gc_create_new_player"
-        android:backgroundTint="@color/medium_gray"
+        android:backgroundTint="@color/light_gray"
         android:textColor="@color/black"/>
 
     <Button

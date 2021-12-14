@@ -13,10 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.darts.R
 import com.example.darts.databinding.FragmentGameScreenBinding
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.concurrent.schedule
 
 class GameScreenFragment: Fragment() {
 
@@ -176,7 +173,7 @@ class GameScreenFragment: Fragment() {
             binding.btnOk.setBackgroundColor(resources.getColor(R.color.main_blue))
         }
         else {
-            binding.btnOk.setBackgroundColor(resources.getColor(R.color.light_gray))
+            binding.btnOk.setBackgroundColor(resources.getColor(R.color.medium_gray))
         }
 
         /** Update the players list */
@@ -200,14 +197,14 @@ class GameScreenFragment: Fragment() {
         else binding.tvScoreDartThree.text = currentTosses[2]!!.points.toString()
 
         /** Score input balls highlights */
-        binding.flScoreDartOne.setBackgroundResource(R.drawable.round_gray_bg)
-        binding.flScoreDartTwo.setBackgroundResource(R.drawable.round_gray_bg)
-        binding.flScoreDartThree.setBackgroundResource(R.drawable.round_gray_bg)
+        binding.flScoreDartOne.setBackgroundResource(R.drawable.round_white_bg)
+        binding.flScoreDartTwo.setBackgroundResource(R.drawable.round_white_bg)
+        binding.flScoreDartThree.setBackgroundResource(R.drawable.round_white_bg)
 
         when (iToss) {
-            0 -> binding.flScoreDartOne.setBackgroundResource(R.drawable.round_gray_bg_focused)
-            1 -> binding.flScoreDartTwo.setBackgroundResource(R.drawable.round_gray_bg_focused)
-            2 -> binding.flScoreDartThree.setBackgroundResource(R.drawable.round_gray_bg_focused)
+            0 -> binding.flScoreDartOne.setBackgroundResource(R.drawable.round_white_bg_focused)
+            1 -> binding.flScoreDartTwo.setBackgroundResource(R.drawable.round_white_bg_focused)
+            2 -> binding.flScoreDartThree.setBackgroundResource(R.drawable.round_white_bg_focused)
         }
 
         /** Factor elements */
@@ -301,7 +298,7 @@ class GameScreenFragment: Fragment() {
 
     private fun setupGameUI() {
         binding.tvCurrentPlayerScore.text = settings.startingPoints.toString()
-        binding.flScoreDartOne.setBackgroundResource(R.drawable.round_gray_bg_focused)
+        binding.flScoreDartOne.setBackgroundResource(R.drawable.round_white_bg_focused)
         binding.tvCurrentPlayerName.text = game.getCurrentPlayer().name
     }
 
